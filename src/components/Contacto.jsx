@@ -8,7 +8,7 @@ import { MapContainer, TileLayer, Marker, useMapEvent } from "react-leaflet";
 import L from "leaflet";
 import ContactoForm from './ContactoForm';
 
-const finalPosition = [7.7669, -72.2250];
+const finalPosition = [7.770933, -72.232036];
 
 const letterVariants = {
   hidden: { opacity: 0, x: -20 },
@@ -87,16 +87,24 @@ function Contacto() {
         overflow: "hidden",
         paddingTop: 0,
         paddingBottom: "20px",
-        minHeight: isMobile ? containerHeight : containerHeight, // 👈 Cambia esto
-        backgroundImage: isMobile ? 'url(/fondo-celeste.avif)' : 'url(/fondo-celeste.avif)',
-        backgroundColor: "rgb(0 30 43/var(--tw-bg-opacity,1))",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        minHeight: isMobile ? containerHeight : containerHeight,
+
+        // 🎨 Fondo degradado turquesa pastel
+        background: `
+      linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f5fcfb 40%,
+        #eaf7f5 70%,
+        #d5ede9 100%
+      )
+    `,
+
         backgroundAttachment: "fixed",
       }}
       ref={ref}
     >
+
       {/* Divs con imágenes */}
       <div
         className={`image image-left ${startAnimation ? "animate-left" : ""}`}
@@ -160,30 +168,29 @@ function Contacto() {
 
             {!formSubmitted && (
               <Typography
-                variant={isMobile ? "h4" : "h4"}
+                variant="h4"
                 align="left"
                 gutterBottom
                 sx={{
-                  color: "white",
+                  color: "#355f5b", // 👈 CAMBIO CLAVE
                   display: "flex",
-                  alignItems: "center", // 🔹 asegura que todos los elementos hijos estén alineados verticalmente
+                  alignItems: "center",
                   fontFamily: "'Montserrat', Helvetica, Arial, sans-serif !important",
                   lineHeight: 1.2,
                 }}
               >
-                {/* Barra | verde al inicio */}
+                {/* Barra | de acento */}
                 <motion.span
                   initial={{ opacity: 0, x: -20 }}
                   animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                   transition={{ delay: 0.3 }}
                   style={{
-                    color: "rgb(155 34 97)",
+                    color: "#5fb3a2", // 👈 turquesa más vivo
                     fontWeight: "bold",
-                    fontSize: isMobile ? "1.3rem" : "1.3rem",
+                    fontSize: "1.3rem",
                     display: "inline-block",
-                    verticalAlign: "middle", // ✅ mantiene alineado con el texto
-                    marginRight: "2px",
-                    marginBottom: isMobile ? "3px" : "5px"
+                    verticalAlign: "middle",
+                    marginRight: "6px",
                   }}
                 >
                   |
@@ -205,6 +212,7 @@ function Contacto() {
                   </motion.span>
                 ))}
               </Typography>
+
             )}
 
             {!formSubmitted ? (

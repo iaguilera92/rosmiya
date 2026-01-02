@@ -96,7 +96,7 @@ const Evidencias = () => {
                     position: 'relative',
                     height: isMobile ? '60vh' : '40vh',
                     pt: { xs: 8, sm: 10 },
-                    backgroundImage: `url('fondo-areas1.avif')`,
+                    backgroundImage: `url('fondo-blanco.jpg')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundAttachment: 'scroll',
@@ -128,15 +128,18 @@ const Evidencias = () => {
                             sx={{
                                 fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.5rem' },
                                 fontWeight: 600,
-                                color: 'white',
+                                color: '#2f3e46',
                                 fontFamily: `'Montserrat', 'Segoe UI', sans-serif`,
-                                textShadow: '1px 1px 4px rgba(0,0,0,0.2)',
                                 px: 4,
                             }}
                         >
-                            Tu marca, tan única como un {' '}<span style={{ color: '#99D7F2' }}>tulipán entre rosas.</span>
-
+                            Diseño y costura en{'  '}
+                            <span style={{ color: '#5fb3a2' }}>
+                                perfecta armonía.
+                            </span>
                         </Typography>
+
+
                     </motion.div>
                 </Box>
                 {/* Imagen + video */}
@@ -205,19 +208,24 @@ const Evidencias = () => {
             <Box
                 sx={{
                     position: 'relative',
-                    backgroundImage: `url('/fondo-blanco2.png')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    pt: isMobile ? 0 : 0,
+                    background: `
+      linear-gradient(
+        180deg,
+        #bfe7e1 0%,
+        #9fd8cf 45%,
+        #7fc7bb 100%
+      )
+    `,
+                    pt: 0,
                     pb: 4,
                     px: { xs: 2, sm: 4 },
                     zIndex: 2,
                     mt: 0,
-                    boxShadow: '0px -4px 20px rgba(0,0,0,0.05)',
-                    borderTop: '1px solid #e0e0e0',
+                    boxShadow: '0px -4px 20px rgba(0,0,0,0.08)',
+                    borderTop: '1px solid #8fcfc5',
                 }}
             >
+
                 {/* Clip decorativo */}
                 <Box
                     ref={ref}
@@ -231,13 +239,15 @@ const Evidencias = () => {
                         clipPath: isMobile
                             ? "polygon(0 0, 50% 40%, 100% 0, 100% 100%, 0 100%)"
                             : "polygon(0 0, 50% 70%, 100% 0, 100% 100%, 0 100%)",
-                        backgroundImage: `url('/fondo-blanco2.png')`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
+
+                        // ✅ COLOR PLANO, no degradado
+                        backgroundColor: '#bfe7e1',
+
                         pointerEvents: 'none',
                     }}
                 />
+
+
 
                 {/* Logos y videos */}
                 <motion.div
@@ -251,14 +261,18 @@ const Evidencias = () => {
                         <Box
                             sx={{
                                 zIndex: 3,
-                                background: "#99D7F2",
+
+                                // 🎨 Turquesa pastel
+                                background: "#d5ede9",
+
                                 borderRadius: 4,
                                 p: { xs: 2, sm: 4 },
-                                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.25)',
+                                boxShadow: "0 8px 30px rgba(0, 0, 0, 0.18)",
                                 maxWidth: "1200px",
                                 mx: "auto",
                             }}
                         >
+
                             <Typography
                                 variant="h4"
                                 gutterBottom
@@ -274,8 +288,11 @@ const Evidencias = () => {
                                     flexWrap: "wrap",
                                     justifyContent: "center", // 👈 ahora el contenido dentro queda al centro
                                     alignItems: "center",
-                                    backgroundColor: "transparent",
-                                    color: "white",
+                                    background: "linear-gradient(90deg, #355f5b, #5f7f7b)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    textShadow: "0 1px 6px rgba(53, 95, 91, 0.2)",
+
                                     textAlign: "center", // 👈 adicional para asegurar texto centrado
                                 }}
                             >
@@ -285,18 +302,22 @@ const Evidencias = () => {
                                     animate={inView || hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                                     transition={{ delay: 0.3 }}
                                     style={{
-                                        color: "#8B4513",
-                                        fontWeight: "bold",
-                                        marginRight: "4px",
-                                        marginTop: "-4px",
-                                        fontSize: "0.9em",
-                                        lineHeight: 1,
+                                        color: "#355f5b",          // 🎨 verde elegante (misma familia)
+                                        fontWeight: 700,
+                                        marginRight: "6px",
+                                        marginTop: "-0px",
+                                        fontSize: "1em",
+                                        lineHeight: 0.9,
                                         display: "inline-block",
                                         transform: "translateY(2px)",
+
+                                        // ✨ sutil realce
+                                        textShadow: "0 0 6px rgba(95, 180, 170, 0.45)",
                                     }}
                                 >
                                     |
                                 </motion.span>
+
 
                                 {/* Texto animado letra por letra */}
                                 {textoAnimado.split("").map((char, i) => (

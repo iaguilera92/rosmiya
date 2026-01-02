@@ -109,16 +109,22 @@ function Features({ videoReady, informationsRef }) {
   return (
     <Box
       sx={{
-        backgroundImage: 'url(fondo-blizz-rosmiya.webp)',
-        backgroundSize: 'cover',  // Asegura que la imagen cubra todo el contenedor
-        backgroundPosition: 'center',  // Centra la imagen en el fondo
-        backgroundAttachment: 'fixed',  // Asegura que la imagen de fondo no se mueva al hacer scroll
+        background: `
+      linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f5fcfb 40%,
+        #eaf7f5 70%,
+        #d5ede9 100%
+      )
+    `,
         py: 2,
         paddingBottom: "15px",
-        color: "white",  // Ajusta el color del texto para que sea visible sobre el fondo
-        overflowY: 'visible'
+        color: "#ffffff",
+        overflowY: "visible",
       }}
     >
+
       <Container sx={{ py: 0, maxWidth: "1500px !important", overflow: 'hidden' }}>
         <Box ref={ref} sx={{ mt: 0 }}>
           <motion.div
@@ -149,29 +155,37 @@ function Features({ videoReady, informationsRef }) {
                 fontFamily: "Albert Sans, sans-serif",
                 fontWeight: 600,
                 color: "#fff",
+
+                // 🎨 TURQUESA PRINCIPAL
                 background:
-                  "linear-gradient(0deg, rgba(135,206,250,1) 0%, rgba(0,191,255,1) 100%)", // celeste claro → aqua
+                  "linear-gradient(0deg, rgba(38,198,218,1) 0%, rgba(0,172,193,1) 100%)",
+
                 position: "relative",
                 overflow: "hidden",
                 justifyContent: "center",
                 gap: 0,
+
+                // ✨ Glow turquesa
                 boxShadow: `
       0 6px 14px rgba(0,0,0,0.2),
-      0 0 18px rgba(135,206,250,0.6),
+      0 0 18px rgba(0, 200, 210, 0.6),
       inset 0 0 6px rgba(255,255,255,0.25)
     `,
-                border: "1px solid white",
 
+                border: "1px solid rgba(255,255,255,0.85)",
+
+                // 🔥 Hover
                 "&:hover": {
                   background:
-                    "linear-gradient(0deg, rgba(160,220,255,1) 0%, rgba(30,200,255,1) 100%)",
+                    "linear-gradient(0deg, rgba(64,224,208,1) 0%, rgba(0,188,212,1) 100%)",
                   boxShadow: `
         0 8px 18px rgba(0,0,0,0.25),
-        0 0 22px rgba(100,200,255,0.7),
+        0 0 22px rgba(0, 220, 230, 0.75),
         inset 0 0 8px rgba(255,255,255,0.25)
       `,
                 },
 
+                // 🌟 Sheen animado
                 "&::after": {
                   content: '""',
                   position: "absolute",
@@ -189,6 +203,7 @@ function Features({ videoReady, informationsRef }) {
                 },
               }}
             >
+
               {/* ⏩ Pop al contenido */}
               <motion.div
                 initial={{ scale: 0.9 }} // parte un poco más chico
@@ -204,6 +219,7 @@ function Features({ videoReady, informationsRef }) {
                 <AccessTimeFilledRoundedIcon
                   sx={{
                     fontSize: { xs: 18, sm: 22 },
+                    mr: 0.5,
                     animation: "clock 12s linear infinite",
                     transformOrigin: "50% 50%",
                     filter: "drop-shadow(0 0 4px rgba(255,167,38,.35))",
@@ -236,27 +252,36 @@ function Features({ videoReady, informationsRef }) {
                       py: 0.4,
                       borderRadius: "8px",
                       fontWeight: 700,
-                      background: "linear-gradient(135deg, #4fc3f7, #0288d1)", // celeste → azul medio
+
+                      // 🎨 TURQUESA
+                      background: "linear-gradient(135deg, #26c6da, #00838f)",
+
                       color: "#fff",
                       border: "2px solid rgba(255,255,255,.85)",
+
+                      // ✨ Glow turquesa
                       boxShadow: `
-      0 0 6px rgba(79,195,247,.6),
+      0 0 6px rgba(0, 200, 210, .6),
       inset 0 0 6px rgba(255,255,255,0.25)
     `,
+
                       whiteSpace: "nowrap",
                       position: "relative",
                       zIndex: 1,
                       transition: "all .25s ease",
+
+                      // 🔥 Hover
                       "&:hover": {
                         borderColor: "#fff",
                         boxShadow: `
-        0 0 10px rgba(79,195,247,.8),
+        0 0 10px rgba(0, 220, 230, .8),
         inset 0 0 8px rgba(255,255,255,0.35)
       `,
-                        background: "linear-gradient(135deg, #81d4fa, #039be5)",
+                        background: "linear-gradient(135deg, #4dd0e1, #00acc1)",
                       },
                     }}
                   >
+
                     {mayoristas}{" "}
                     {mayoristas === 1 ? "Mayorista" : "Mayoristas"}
                   </Box>
@@ -270,27 +295,36 @@ function Features({ videoReady, informationsRef }) {
                       py: 0.4,
                       borderRadius: "8px",
                       fontWeight: 700,
-                      background: "linear-gradient(135deg, #4fc3f7, #0288d1)", // celeste → azul medio
+
+                      // 🎨 TURQUESA
+                      background: "linear-gradient(135deg, #26c6da, #00838f)",
+
                       color: "#fff",
                       border: "2px solid rgba(255,255,255,.85)",
+
+                      // ✨ Glow turquesa
                       boxShadow: `
-      0 0 6px rgba(79,195,247,.6),
+      0 0 6px rgba(0, 200, 210, .6),
       inset 0 0 6px rgba(255,255,255,0.25)
     `,
+
                       whiteSpace: "nowrap",
                       position: "relative",
                       zIndex: 1,
                       transition: "all .25s ease",
+
+                      // 🔥 Hover
                       "&:hover": {
                         borderColor: "#fff",
                         boxShadow: `
-        0 0 10px rgba(79,195,247,.8),
+        0 0 10px rgba(0, 220, 230, .8),
         inset 0 0 8px rgba(255,255,255,0.35)
       `,
-                        background: "linear-gradient(135deg, #81d4fa, #039be5)",
+                        background: "linear-gradient(135deg, #4dd0e1, #00acc1)",
                       },
                     }}
                   >
+
                     {confeccionesrosmiya} {confeccionesrosmiya === 1 ? "Confección" : "Confecciones"}
                   </Box>
                 </Box>

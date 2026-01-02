@@ -1,9 +1,9 @@
 /* Botón animado */
 .btn-3 {
-  background: rgb(79, 172, 254);
+  background: rgb(38, 198, 218);
   background: linear-gradient(0deg,
-      rgba(79, 172, 254, 1) 0%,
-      rgba(0, 198, 255, 1) 100%);
+      rgba(38, 198, 218, 1) 0%,
+      rgba(0, 172, 193, 1) 100%);
   width: 165px;
   height: 40px;
   line-height: 42px;

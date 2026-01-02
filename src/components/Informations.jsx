@@ -121,14 +121,14 @@ function Informations({ informationsRef, triggerInformations }) {
 
   const handleContactClick = (title) => {
     const mensaje = `¡Hola! Me interesó la promoción de ${encodeURIComponent(title)} ¿Me comentas?`;
-    window.open(`https://api.whatsapp.com/send?phone=56979897336&text=${mensaje}`, "_blank");
+    window.open(`https://api.whatsapp.com/send?phone=584149790335&text=${mensaje}`, "_blank");
   };
   return (
     <Box
       sx={{
         position: "relative",
         zIndex: 10,
-        backgroundImage: 'url(fondo-blizz-rosmiya.webp)',
+        backgroundImage: 'url(fondo-escritorio.webp)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -152,7 +152,7 @@ function Informations({ informationsRef, triggerInformations }) {
               width: 25,
               height: 25,
               borderRadius: "50%",
-              backgroundColor: "black",
+              backgroundColor: "rgb(102, 205, 205)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -201,7 +201,7 @@ function Informations({ informationsRef, triggerInformations }) {
                 position: "relative",
                 zIndex: 1,
                 backgroundColor: "transparent",
-                color: "black",
+                color: "#355f5b",
                 "::after": {
                   content: '""',
                   position: "absolute",
@@ -214,7 +214,7 @@ function Informations({ informationsRef, triggerInformations }) {
                 },
               }}
             >
-              Estilo, calidad y elegancia femenina
+              La elegancia está en los detalles
             </Typography>
           </motion.div>
 
@@ -232,7 +232,7 @@ function Informations({ informationsRef, triggerInformations }) {
               border: "1px solid white",
               zIndex: 0,
               background: "white",
-              clipPath: "polygon(0% 0%, 0% 0%, 19% 100%, 0% 100%, 0% 0%, 100% 0%, 80% 100%, 100% 100%, 100% 0%)",
+              clipPath: "polygon(0% 0%, 0% 0%, 15% 100%, 0% 100%, 0% 0%, 100% 0%, 85% 100%, 100% 100%, 100% 0%)",
             }}
           />
 
@@ -319,14 +319,19 @@ function Informations({ informationsRef, triggerInformations }) {
                                 left: "50%",
                                 transform: "translateX(-50%)",
                                 width: "2px",
+
+                                // 🎨 Línea punteada turquesa sutil
                                 backgroundImage:
-                                  "linear-gradient(black 40%, rgba(255,255,255,0) 0%)",
+                                  "linear-gradient(#355f5b 40%, rgba(53,95,91,0) 0%)",
+
                                 backgroundPosition: "left",
                                 backgroundSize: "2px 6px",
                                 backgroundRepeat: "repeat-y",
                                 zIndex: 1,
+                                opacity: 0.5,
                               }}
                             />
+
                           )}
 
                           <Box
@@ -335,7 +340,10 @@ function Informations({ informationsRef, triggerInformations }) {
                               height: 70,
                               borderRadius: "50%",
                               border: "2px solid white",
-                              backgroundColor: "rgb(79 172 254)",
+
+                              // 🎨 Turquesa pastel
+                              backgroundColor: "rgb(102, 205, 205)", // Medium Turquoise
+
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -343,6 +351,7 @@ function Informations({ informationsRef, triggerInformations }) {
                               zIndex: 2,
                             }}
                           >
+
                             {item.icon}
                             <motion.div
                               style={{
@@ -352,11 +361,15 @@ function Informations({ informationsRef, triggerInformations }) {
                                 width: "100%",
                                 height: "100%",
                                 borderRadius: "50%",
-                                backgroundColor: "rgba(0, 0, 0, 0.2)",
+
+                                // 🎨 Halo turquesa pastel
+                                backgroundColor: "rgba(95, 180, 170, 0.35)",
+
                                 zIndex: 1,
                                 animation: "pulsacion 1s ease-in-out 0.1s infinite",
                               }}
                             />
+
                           </Box>
                         </Box>
                       </ListItemIcon>
@@ -366,11 +379,11 @@ function Informations({ informationsRef, triggerInformations }) {
                           fontFamily: "'Montserrat', Helvetica, Arial, sans-serif !important",
                           "& .MuiListItemText-primary": {
                             fontSize: isMobile ? "0.99rem" : "1.2rem",
-                            color: "black", // <--- Agrega esta línea
+                            color: "#355f5b", // <--- Agrega esta línea
                             fontWeight: 500, // Opcional: para que resalte más que el secondary
                           },
                           "& .MuiListItemText-secondary": {
-                            color: "black",
+                            color: "#355f5b",
                           },
                         }}
                         primary={item.text}
@@ -397,27 +410,37 @@ function Informations({ informationsRef, triggerInformations }) {
                 textTransform: "uppercase",
                 letterSpacing: "2px",
                 fontSize: { xs: "1.2rem", md: "1.6rem" },
-                background: "linear-gradient(90deg, #ffffff, #f5f5f5)",
+
+                // 🎨 Gradiente de texto suave (no blanco puro)
+                background: "linear-gradient(90deg, #355f5b, #4f7f79)",
                 WebkitBackgroundClip: "text",
-                textShadow: "0 2px 10px rgba(0,0,0,0.35)",
+                WebkitTextFillColor: "transparent",
+
+                // ✨ Sombra sutil (menos agresiva)
+                textShadow: "0 1px 6px rgba(53,95,91,0.25)",
+
                 position: "relative",
-                color: "black",
                 display: "inline-block",
+
                 "&::after": {
                   content: '""',
                   position: "absolute",
                   bottom: -2,
                   left: 0,
-                  width: showPopularBadge ? "100%" : "0%", // 👈 cambiamos solo el width dinámico
+                  width: showPopularBadge ? "100%" : "0%",
                   height: "3px",
                   borderRadius: "3px",
-                  background: "linear-gradient(90deg, #4facfe, #00f2fe)",
+
+                  // 🌿 Underline turquesa pastel
+                  background: "linear-gradient(90deg, #9fd8cf, #5fb3a2)",
+
                   transition: "width 0.6s ease-out",
                 },
               }}
             >
               Nuestros Servicios
             </Typography>
+
             <Box ref={swiperRef} sx={{ display: isMobile ? "block" : "block", position: "relative", px: 1, pt: 2, pb: 1, overflow: "hidden" }}>
               <Swiper
                 style={{ overflow: "visible" }}

@@ -352,24 +352,44 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
             display: "flex",
             flexDirection: "column",
             height: "100dvh",
-            width: { xs: '80vw', sm: '60vw', md: '50vw' },
-            maxWidth: '700px',
-            minWidth: '300px',
-            background: `
-  linear-gradient(135deg, rgba(231, 138, 174, 0.95), rgba(200, 100, 140, 0.95)),
-  radial-gradient(circle at 20% 30%, rgba(255, 180, 210, 0.4) 0%, transparent 40%),
-  radial-gradient(circle at 80% 70%, rgba(255, 200, 220, 0.3) 0%, transparent 45%)
-`,
+            width: { xs: "80vw", sm: "60vw", md: "50vw" },
+            maxWidth: "700px",
+            minWidth: "300px",
 
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            color: '#ffffff',
-            boxShadow: '0 0 30px rgba(0, 0, 0, 0.6)',
-            borderLeft: '1px solid rgba(255, 180, 200, 0.3)', // borde con leve tinte rosado
+            // 🎨 TURQUESA PRINCIPAL
+            background: `
+        linear-gradient(
+          135deg,
+          rgba(38, 198, 218, 0.95),
+          rgba(0, 150, 165, 0.95)
+        ),
+        radial-gradient(
+          circle at 20% 30%,
+          rgba(160, 235, 230, 0.45) 0%,
+          transparent 40%
+        ),
+        radial-gradient(
+          circle at 80% 70%,
+          rgba(120, 220, 215, 0.35) 0%,
+          transparent 45%
+        )
+      `,
+
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            color: "#ffffff",
+
+            // ✨ Profundidad
+            boxShadow: "0 0 30px rgba(0, 0, 0, 0.6)",
+
+            // 🧊 Borde sutil turquesa
+            borderLeft: "1px solid rgba(120, 220, 215, 0.35)",
+
             p: 0,
           },
         }}
       >
+
 
         <Box sx={{ overflowY: 'auto', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end", p: 0.5 }}>
@@ -455,12 +475,26 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                     pt: 0,
                     color: "#ffffff",
                     backdropFilter: "blur(8px)",
+
+                    // 🎨 Glass turquesa suave
                     background: `
-  radial-gradient(circle at top left, rgba(255, 105, 180, 0.25), transparent 70%),
-  linear-gradient(135deg, rgba(255, 182, 193, 0.12), rgba(255, 105, 180, 0.05))
-`,
-                    border: "1px solid rgba(255, 182, 193, 0.3)",
-                    boxShadow: "0 0 12px rgba(255, 182, 193, 0.1)"
+      radial-gradient(
+        circle at top left,
+        rgba(160, 235, 230, 0.25),
+        transparent 70%
+      ),
+      linear-gradient(
+        135deg,
+        rgba(120, 220, 215, 0.14),
+        rgba(0, 150, 165, 0.08)
+      )
+    `,
+
+                    // 🧊 Borde sutil
+                    border: "1px solid rgba(120, 220, 215, 0.35)",
+
+                    // ✨ Profundidad leve
+                    boxShadow: "0 0 12px rgba(0, 180, 190, 0.15)",
                   }}
                 >
 
@@ -470,8 +504,8 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                       src="/logo-rosmiya.png"
                       alt="Bienvenidos"
                       sx={{
-                        width: 110,
-                        height: 70,
+                        width: 60,
+                        height: 60,
                         objectFit: "contain",
                         borderRadius: 2,
                         mr: 1,
@@ -485,7 +519,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                         letterSpacing: 0.3,
                       }}
                     >
-                      Bienvenid@ a rosmiya
+                      Bienvenid@ a Rosmiya
                     </Typography>
                   </Box>
 
@@ -524,7 +558,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                     sx={{
                       mt: 1,
                       minHeight: 'unset',
-                      color: "#90caf9",
+                      color: "white",
                       fontWeight: 600,
                       fontSize: "0.8rem",
                       textTransform: "none",

@@ -116,7 +116,15 @@ const Areas = () => {
     <Box
       sx={{
         position: 'relative', // 👈 necesario para que el degradado se posicione correctamente
-        backgroundImage: isMobile ? 'url(/fondo-areas2.jpg)' : 'url(/fondo-rosmiya.jpg)',
+        background: `
+      linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f5fcfb 40%,
+        #eaf7f5 70%,
+        #d5ede9 100%
+      )
+    `,
         backgroundRepeat: "no-repeat",
         backgroundSize: isMobile ? "100% 100%" : "100% auto",
         backgroundPosition: isMobile ? "center" : "",

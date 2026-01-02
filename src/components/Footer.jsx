@@ -93,7 +93,7 @@ const Footer = () => {
 
               <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <img src="telefono-icon.png" alt="Teléfono" width={16} style={{ filter: 'brightness(0)' }} />
-                <Link href="tel:+56987654321" color="rgb(0 0 0)">+56 987654321</Link>
+                <Link href="tel:++584149790335" color="rgb(0 0 0)">+58 414 9790335</Link>
               </Typography>
 
               <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -103,7 +103,7 @@ const Footer = () => {
 
               <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }} color="rgb(0 0 0)">
                 <img src="location-icon.png" alt="Ubicación" width={16} style={{ filter: 'brightness(0)' }} />
-                Venezuela, Tachira.
+                Venezuela, Tachira San Cristobal calle 12 #11-117 Ermita.
               </Typography>
             </Box>
 
