@@ -68,9 +68,9 @@ const Footer = () => {
         backgroundColor: "rgba(23, 24, 25, 0.97)",
         padding: "20px 0",
         color: "white",
-        backgroundImage: "url(/footer-ivelpink.avif)",
+        backgroundImage: "url(/footer-rosmiya.jpg)",
         backgroundSize: "cover",
-        backgroundPosition: "center 80%"
+        backgroundPosition: "center 40%"
       }}
     >
       <Container maxWidth="lg">
@@ -87,23 +87,23 @@ const Footer = () => {
           >
             {/* 🔹 Columna 1: Contacto */}
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
-              <Typography variant="h6" sx={{ color: "rgb(245 96 206)" }}>
+              <Typography variant="h6" sx={{ color: "black" }}>
                 Contacto
               </Typography>
 
               <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <img src="telefono-icon.png" alt="Teléfono" width={16} style={{ filter: 'invert(66%) sepia(39%) saturate(746%) hue-rotate(285deg) brightness(104%) contrast(101%)' }} />
-                <Link href="tel:+56987654321" color="rgb(245 96 206)">+56 987654321</Link>
+                <img src="telefono-icon.png" alt="Teléfono" width={16} style={{ filter: 'brightness(0)' }} />
+                <Link href="tel:+56987654321" color="rgb(0 0 0)">+56 987654321</Link>
               </Typography>
 
               <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <img src="mail-icon.png" alt="Correo" width={16} style={{ filter: 'invert(66%) sepia(39%) saturate(746%) hue-rotate(285deg) brightness(104%) contrast(101%)' }} />
-                <Link href="mailto:ivelpink.cl@gmail.com" color="rgb(245 96 206)">ivelpink.cl@gmail.com</Link>
+                <img src="mail-icon.png" alt="Correo" width={16} style={{ filter: 'brightness(0)' }} />
+                <Link href="mailto:rosmiya.cl@gmail.com" color="rgb(0 0 0)">rosmiya.cl@gmail.com</Link>
               </Typography>
 
-              <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }} color="rgb(245 96 206)">
-                <img src="location-icon.png" alt="Ubicación" width={16} style={{ filter: 'invert(66%) sepia(39%) saturate(746%) hue-rotate(285deg) brightness(104%) contrast(101%)' }} />
-                Juan Martinez de Rozas #3888, Santiago.
+              <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }} color="rgb(0 0 0)">
+                <img src="location-icon.png" alt="Ubicación" width={16} style={{ filter: 'brightness(0)' }} />
+                Venezuela, Tachira.
               </Typography>
             </Box>
 
@@ -117,7 +117,7 @@ const Footer = () => {
                 animation: logoInView ? `${growElement} 1s forwards` : "none",
               }}
             >
-              <img src="/logo-ivelpink.png" alt="Logo" style={{ height: "95px", marginBottom: "10px" }} />
+              <img src="/logo-rosmiya.png" alt="Logo" style={{ height: "95px", marginBottom: "10px", filter: 'brightness(0)' }} />
               <Box
                 ref={socialRef}
                 sx={{
@@ -128,7 +128,7 @@ const Footer = () => {
                 }}
               >
                 <SocialButton
-                  href="https://www.instagram.com/ivelpink.cl/?hl=es-la"
+                  href="https://www.instagram.com/rosmiyasc/"
                   Icon={InstagramIcon}
                   bgColor="linear-gradient(45deg, #cf198c, #f41242)"
                   hoverStyles={{
@@ -141,7 +141,7 @@ const Footer = () => {
 
                 {/* Facebook con su hover personalizado */}
                 <SocialButton
-                  href="https://www.facebook.com/people/Ivelpink/61573460535717/#"
+                  href="https://www.facebook.com/people/rosmiya/61573460535717/#"
                   Icon={FacebookIcon}
                   bgColor="linear-gradient(45deg, #00B5F5, #002A8F)"
                   hoverStyles={{
@@ -170,9 +170,9 @@ const Footer = () => {
             {/* 🔹 Columna 3: Proveedores */}
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0.5 }}>
 
-              <img src="area-clientes.png" onClick={handleClick} width={120} alt="Área Clientes" style={{ filter: 'invert(66%) sepia(39%) saturate(746%) hue-rotate(285deg) brightness(104%) contrast(101%)', marginTop: -35, marginBottom: "10px" }} />
+              <img src="area-clientes.png" onClick={handleClick} width={120} alt="Área Clientes" style={{ filter: 'brightness(0)', marginTop: -35, marginBottom: "10px" }} />
 
-              <Typography sx={{ display: "flex", alignItems: "center", gap: 0.5 }} color="rgb(245 96 206)">
+              <Typography sx={{ display: "flex", alignItems: "center", gap: 0.5 }} color="rgb(0 0 0)">
                 <AdminPanelSettingsIcon fontSize="small" />
                 <Link href="administracion" color="inherit" onClick={handleClick}>
                   Administración
@@ -187,13 +187,13 @@ const Footer = () => {
         {isMobile && (
           <Box display="flex" flexDirection="column" alignItems="center" mb={7}>
             <Box ref={logoRef} sx={{ animation: logoInView ? `${growElement} 1s forwards` : "none" }}>
-              <img src="/logo-ivelpink.png" alt="Logo" style={{ height: "85px", marginBottom: "0" }} />
+              <img src="/logo-rosmiya.png" alt="Logo" style={{ height: "85px", marginBottom: "0", filter: 'brightness(0)' }} />
             </Box>
 
             {/* Redes Sociales */}
             <Box ref={socialRef} sx={{ display: "flex", gap: 6, mb: 2, animation: socialInView ? `${growElement} 1s forwards` : "none", }}            >
-              <SocialButton href="https://www.instagram.com/ivelpink.cl/?hl=es-la" Icon={InstagramIcon} bgColor="linear-gradient(45deg, #cf198c, #f41242)" isMobile={isMobile} />
-              <SocialButton href="https://www.facebook.com/people/Ivelpink/61573460535717/#" Icon={FacebookIcon} bgColor="linear-gradient(45deg, #00B5F5, #002A8F)" isMobile={isMobile} />
+              <SocialButton href="https://www.instagram.com/rosmiyasc/" Icon={InstagramIcon} bgColor="linear-gradient(45deg, #cf198c, #f41242)" isMobile={isMobile} />
+              <SocialButton href="https://www.facebook.com/people/rosmiya/61573460535717/#" Icon={FacebookIcon} bgColor="linear-gradient(45deg, #00B5F5, #002A8F)" isMobile={isMobile} />
               <SocialButton href="https://www.linkedin.com/company/mittarentacar/?viewAsMember=true" Icon={LinkedInIcon} bgColor="linear-gradient(45deg, #00B5F5, #0077b7)" isMobile={isMobile} />
             </Box>
 
@@ -201,7 +201,7 @@ const Footer = () => {
             >
               <img src="area-clientes.png" onClick={handleClick} width={120} alt="Área Clientes" style={{ marginTop: 10, marginRight: 30, marginBottom: "0px" }} />
 
-              <Typography ml={"10px"} sx={{ display: "flex", alignItems: "center", gap: 0 }} color="rgb(245 96 206)">
+              <Typography ml={"10px"} sx={{ display: "flex", alignItems: "center", gap: 0 }} color="rgb(0 0 0)">
                 <AdminPanelSettingsIcon fontSize="small" />
                 <Link href="administracion" color="inherit" onClick={handleClick}>
                   Administración
@@ -212,7 +212,7 @@ const Footer = () => {
         )}
 
         <Typography variant="body2" align="center" mt={2} sx={{ marginTop: "5vh" }}>
-          @IvelPink 2025 {version && `- v${version}`}
+          @rosmiya 2025 {version && `- v${version}`}
         </Typography>
         <Typography variant="body2" align="center" mt={2} sx={{ marginTop: "1vh", cursor: "pointer" }} onClick={() => window.open("http://plataformas-web.cl", "_blank")}>
           Diseñado por www.plataformas-web.cl

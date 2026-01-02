@@ -47,15 +47,15 @@ const promotions = [
   },
   {
     id: 3,
-    title: "🚚Envíos a todo Chile",
-    description: "Realizamos envíos de nuestras confecciones a todo Chile, con atención dedicada, rapidez y seguimiento constante.",
+    title: "🚚Envíos a todo Venezuela",
+    description: "Realizamos envíos de nuestras confecciones a todo Venezuela, con atención dedicada, rapidez y seguimiento constante.",
     image: "/Informations-3.webp",
     price: "Consulta con nosotros",
     bgColor: "linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2))",
     textColor: "white",
     descriptors: [
       "📦 Entregas rápidas y seguras.",
-      "🚀 Despachos a todo Chile.",
+      "🚀 Despachos a todo Venezuela.",
       "⏱️ Cumplimos los plazos.",
       "🏠 Directo a tu puerta.",
       "🌎 Cobertura nacional completa.",
@@ -128,7 +128,7 @@ function Informations({ informationsRef, triggerInformations }) {
       sx={{
         position: "relative",
         zIndex: 10,
-        backgroundImage: 'url(fondo-blizz-ivelpink.webp)',
+        backgroundImage: 'url(fondo-blizz-rosmiya.webp)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -201,7 +201,7 @@ function Informations({ informationsRef, triggerInformations }) {
                 position: "relative",
                 zIndex: 1,
                 backgroundColor: "transparent",
-                color: "white",
+                color: "black",
                 "::after": {
                   content: '""',
                   position: "absolute",
@@ -256,7 +256,7 @@ function Informations({ informationsRef, triggerInformations }) {
               },
               {
                 icon: <LocalShipping sx={{ color: "white", fontSize: "2.2rem" }} />,
-                text: "Envíos a todo Chile.",
+                text: "Envíos a todo Venezuela.",
                 desc: "Despacha tus productos desde el taller a cualquier parte del país.",
                 hideLine: false,
               },
@@ -320,7 +320,7 @@ function Informations({ informationsRef, triggerInformations }) {
                                 transform: "translateX(-50%)",
                                 width: "2px",
                                 backgroundImage:
-                                  "linear-gradient(white 40%, rgba(255,255,255,0) 0%)",
+                                  "linear-gradient(black 40%, rgba(255,255,255,0) 0%)",
                                 backgroundPosition: "left",
                                 backgroundSize: "2px 6px",
                                 backgroundRepeat: "repeat-y",
@@ -352,7 +352,7 @@ function Informations({ informationsRef, triggerInformations }) {
                                 width: "100%",
                                 height: "100%",
                                 borderRadius: "50%",
-                                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                                backgroundColor: "rgba(0, 0, 0, 0.2)",
                                 zIndex: 1,
                                 animation: "pulsacion 1s ease-in-out 0.1s infinite",
                               }}
@@ -366,9 +366,11 @@ function Informations({ informationsRef, triggerInformations }) {
                           fontFamily: "'Montserrat', Helvetica, Arial, sans-serif !important",
                           "& .MuiListItemText-primary": {
                             fontSize: isMobile ? "0.99rem" : "1.2rem",
+                            color: "black", // <--- Agrega esta línea
+                            fontWeight: 500, // Opcional: para que resalte más que el secondary
                           },
                           "& .MuiListItemText-secondary": {
-                            color: "white",
+                            color: "black",
                           },
                         }}
                         primary={item.text}
@@ -399,7 +401,7 @@ function Informations({ informationsRef, triggerInformations }) {
                 WebkitBackgroundClip: "text",
                 textShadow: "0 2px 10px rgba(0,0,0,0.35)",
                 position: "relative",
-                color: "white",
+                color: "black",
                 display: "inline-block",
                 "&::after": {
                   content: '""',

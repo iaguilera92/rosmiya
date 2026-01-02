@@ -40,21 +40,21 @@ exports.handler = async function (event, context) {
           fieldName: "pageLocation",
           stringFilter: {
             matchType: "CONTAINS",
-            value: "ivelpink.cl", // ✅ NUEVO DOMINIO
+            value: "rosmiya.cl", // ✅ NUEVO DOMINIO
           },
         },
       },
     });
 
     const visitas = {
-      chile: 0,
+      Venezuela: 0,
       internacional: 0,
     };
 
     resPais.rows?.forEach((row) => {
       const country = row.dimensionValues[0].value;
       const value = parseInt(row.metricValues[0].value, 10);
-      if (country === "Chile") visitas.chile += value;
+      if (country === "Venezuela") visitas.Venezuela += value;
       else visitas.internacional += value;
     });
 
@@ -70,7 +70,7 @@ exports.handler = async function (event, context) {
           fieldName: "pageLocation",
           stringFilter: {
             matchType: "CONTAINS",
-            value: "ivelpink.cl", // ✅ NUEVO DOMINIO
+            value: "rosmiya.cl", // ✅ NUEVO DOMINIO
           },
         },
       },
@@ -96,9 +96,9 @@ exports.handler = async function (event, context) {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        chile: visitas.chile,
+        Venezuela: visitas.Venezuela,
         internacional: visitas.internacional,
-        total: visitas.chile + visitas.internacional,
+        total: visitas.Venezuela + visitas.internacional,
         dispositivos: {
           mobile: dispositivos.mobile,
           desktop: dispositivos.desktop,

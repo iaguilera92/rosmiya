@@ -68,13 +68,13 @@ const Dashboard = () => {
 
 
     const [mostrarContadorPrincipal, setMostrarContadorPrincipal] = useState(false);
-    const [mostrarContadorChile, setMostrarContadorChile] = useState(false);
+    const [mostrarContadorVenezuela, setMostrarContadorVenezuela] = useState(false);
     const [mostrarContadorInt, setMostrarContadorInt] = useState(false);
     const [snackbarServicios, setSnackbarServicios] = useState(false);
     const location = useLocation();
     const [usuario, setUsuario] = useState(null);
     const [visitasTotales, setVisitasTotales] = useState(0);
-    const [visitasChile, setVisitasChile] = useState(0);
+    const [visitasVenezuela, setVisitasVenezuela] = useState(0);
     const [visitasInternacional, setVisitasInternacional] = useState(0);
 
     const letterVariants = {
@@ -114,7 +114,7 @@ const Dashboard = () => {
 
                 const data = await res.json();
 
-                setVisitasChile(data.chile || 0);
+                setVisitasVenezuela(data.Venezuela || 0);
                 setVisitasInternacional(data.internacional || 0);
                 setVisitasTotales(data.total || 0);
                 setDispositivos(data.dispositivos || { mobile: 0, desktop: 0, tablet: 0 });
@@ -161,7 +161,7 @@ const Dashboard = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                backgroundImage: 'url(fondo-blizz-ivelpink.webp)',
+                backgroundImage: 'url(fondo-blizz-rosmiya.webp)',
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
@@ -473,7 +473,7 @@ const Dashboard = () => {
                             initial={{ opacity: 0, x: -80 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            onAnimationComplete={() => setMostrarContadorChile(true)}
+                            onAnimationComplete={() => setMostrarContadorVenezuela(true)}
                         >
                             <Paper
                                 elevation={3}
@@ -500,10 +500,10 @@ const Dashboard = () => {
                             >
                                 {analyticsDisponible ? (
                                     <Contador
-                                        valorFinal={visitasChile || 0}
-                                        subtexto="Chile"
+                                        valorFinal={visitasVenezuela || 0}
+                                        subtexto="Venezuela"
                                         delay={100}
-                                        iniciar={mostrarContadorChile}
+                                        iniciar={mostrarContadorVenezuela}
                                     />
                                 ) : (
                                     <>

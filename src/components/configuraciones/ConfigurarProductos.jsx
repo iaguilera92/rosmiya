@@ -46,7 +46,7 @@ const ConfigurarProductos = () => {
 
   const recargarProductos = async () => {
     const timestamp = Date.now();
-    const data = await cargarProductos(`https://ivelpink.s3.us-east-2.amazonaws.com/Productos.xlsx?t=${timestamp}`);
+    const data = await cargarProductos(`https://rosmiya.s3.us-east-2.amazonaws.com/Productos.xlsx?t=${timestamp}`);
 
     const ordenados = [...data].sort((a, b) => String(a.IdProducto).localeCompare(String(b.IdProducto)));
 
@@ -145,7 +145,7 @@ const ConfigurarProductos = () => {
   };
 
   return (
-    <Container maxWidth={false} disableGutters sx={{ minHeight: '100vh', width: '100vw', overflowX: 'hidden', py: 1, px: 0, pb: 2, backgroundImage: 'url(fondo-blizz-ivelpink.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundPosition: 'center' }}>
+    <Container maxWidth={false} disableGutters sx={{ minHeight: '100vh', width: '100vw', overflowX: 'hidden', py: 1, px: 0, pb: 2, backgroundImage: 'url(fondo-blizz-rosmiya.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundPosition: 'center' }}>
       <Box sx={{ pt: 14, px: { xs: 2, md: 4 } }}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <Box display="flex" alignItems="center" gap={1}>

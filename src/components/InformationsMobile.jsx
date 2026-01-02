@@ -47,15 +47,15 @@ const promotions = [
   },
   {
     id: 3,
-    title: "🚚Envíos a todo Chile",
-    description: "Realizamos envíos de nuestras confecciones a todo Chile, con atención dedicada, rapidez y seguimiento constante.",
+    title: "🚚Envíos a todo Venezuela",
+    description: "Realizamos envíos de nuestras confecciones a todo Venezuela, con atención dedicada, rapidez y seguimiento constante.",
     image: "/Informations-3.webp",
     price: "Consulta con nosotros",
     bgColor: "linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2))",
     textColor: "white",
     descriptors: [
       "📦 Entregas rápidas y seguras.",
-      "🚀 Despachos a todo Chile.",
+      "🚀 Despachos a todo Venezuela.",
       "⏱️ Cumplimos los plazos.",
       "🏠 Directo a tu puerta.",
       "🌎 Cobertura nacional completa.",
@@ -129,7 +129,7 @@ function Informations({ informationsRef, triggerInformations }) {
       sx={{
         position: "relative",
         zIndex: 10,
-        backgroundImage: 'url(fondo-blizz-ivelpink.webp)',
+        backgroundImage: 'url(fondo-blizz-rosmiya.webp)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -144,7 +144,7 @@ function Informations({ informationsRef, triggerInformations }) {
       }}
     >
 
-      <Container sx={{ textAlign: "center", color: "white", maxWidth: "1400px !important" }}>
+      <Container sx={{ textAlign: "center", color: "black", maxWidth: "1400px !important" }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <Typography
@@ -160,10 +160,9 @@ function Informations({ informationsRef, triggerInformations }) {
                 textTransform: "uppercase",
                 letterSpacing: "2px",
                 fontSize: { xs: "1.2rem", md: "1.6rem" },
-                color: "white",
+                color: "black",
                 background: "linear-gradient(90deg, #ffffff, #f5f5f5)",
                 WebkitBackgroundClip: "text",
-                color: "white",
                 textShadow: "0 2px 10px rgba(0,0,0,0.35)",
                 position: "relative",
                 display: "inline-block",
@@ -532,7 +531,7 @@ function Informations({ informationsRef, triggerInformations }) {
               },
               {
                 icon: <LocalShipping sx={{ color: "white", fontSize: "2.2rem" }} />,
-                text: "Envíos a todo Chile.",
+                text: "Envíos a todo Venezuela.",
                 desc: "Despacha tus productos desde el taller a cualquier parte del país.",
                 hideLine: false,
               },

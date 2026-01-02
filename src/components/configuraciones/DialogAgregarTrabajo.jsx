@@ -462,7 +462,7 @@ export default function DialogAgregarTrabajo({ open, onClose, onSave }) {
                             <Typography
                               sx={{ fontWeight: 600, color: "#333", fontSize: { xs: "0.8rem", sm: "0.9rem" } }}
                             >
-                              Confección IvelPink
+                              Confección rosmiya
                             </Typography>
                           }
                         />

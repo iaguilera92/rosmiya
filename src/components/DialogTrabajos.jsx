@@ -109,7 +109,7 @@ export default function DialogTrabajos({
   const [localTrabajos, setLocalTrabajos] = useState(trabajos);
 
   const mayoristas = localTrabajos.filter(t => t.TipoTrabajo === 2).length;
-  const confeccionesIvelPink = localTrabajos.filter(t => t.TipoTrabajo === 1).length;
+  const confeccionesrosmiya = localTrabajos.filter(t => t.TipoTrabajo === 1).length;
   const [showContent, setShowContent] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const ultimaFecha = React.useMemo(() => {
@@ -156,7 +156,7 @@ export default function DialogTrabajos({
     if (open) {
       const timestamp = Date.now();
       cargarTrabajos(
-        `https://ivelpink.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${timestamp}`
+        `https://rosmiya.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${timestamp}`
       ).then((data) => {
         // 🔹 Filtrar solo los trabajos activos (Estado = 1)
         const activos = data.filter(t => Number(t.Estado) === 1);
@@ -371,7 +371,7 @@ export default function DialogTrabajos({
               </Typography>
             </Box>
 
-            {/* confeccionesIvelPink */}
+            {/* confeccionesrosmiya */}
             <Box
               sx={{
                 flex: 1,
@@ -409,7 +409,7 @@ export default function DialogTrabajos({
                     fontSize: { xs: "1.5rem", sm: "2rem" },
                   }}
                 >
-                  <ContadorAnimado value={confeccionesIvelPink} delay={0.5} duration={2} />
+                  <ContadorAnimado value={confeccionesrosmiya} delay={0.5} duration={2} />
                 </Typography>
               </Box>
               <Typography
@@ -420,7 +420,7 @@ export default function DialogTrabajos({
                   fontSize: { xs: "0.59rem", sm: "0.875rem" },
                 }}
               >
-                Confecciones IvelPink
+                Confecciones rosmiya
               </Typography>
             </Box>
 

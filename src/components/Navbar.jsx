@@ -32,8 +32,8 @@ import { useLocation } from 'react-router-dom';
 
 
 const socialData = {
-  Instagram: { href: "https://www.instagram.com/ivelpink.cl/?hl=es-la", Icon: InstagramIcon, bgColor: "linear-gradient(45deg, #cf198c, #f41242)", hoverColor: "#cf198c" },
-  Facebook: { href: "https://www.facebook.com/people/Ivelpink/61573460535717/#", Icon: FacebookIcon, bgColor: "linear-gradient(45deg, #00B5F5, #002A8F)", hoverColor: "#0077b7" },
+  Instagram: { href: "https://www.instagram.com/rosmiyasc/", Icon: InstagramIcon, bgColor: "linear-gradient(45deg, #cf198c, #f41242)", hoverColor: "#cf198c" },
+  Facebook: { href: "https://www.facebook.com/people/rosmiya/61573460535717/#", Icon: FacebookIcon, bgColor: "linear-gradient(45deg, #00B5F5, #002A8F)", hoverColor: "#0077b7" },
   LinkedIn: { href: "https://www.linkedin.com/company/plataformas-web/", Icon: LinkedInIcon, bgColor: "linear-gradient(45deg, #00B5F5, #0077b7)", hoverColor: "#0077b7" }
 };
 
@@ -100,13 +100,13 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
   const opacity = Math.max(0, 1 - scrollY / maxScroll);
   const translateY = Math.min(scrollY, maxScroll);
   const [mostrarAdmin, setMostrarAdmin] = useState(false);
-  const [titulo, setTitulo] = useState("📦 Envíos a todo Chile");
+  const [titulo, setTitulo] = useState("📦 Envíos a todo Venezuela");
 
 
   useEffect(() => {
     // ✅ cada vez que cambia la ruta, forzamos a mostrar el banner y el logo
     setAnimacionMostrada(true);
-    setTitulo("📦 Envíos a todo Chile");
+    setTitulo("📦 Envíos a todo Venezuela");
   }, [location.pathname]);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -208,8 +208,8 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
               >
                 {titulo}
                 <motion.img
-                  src="icon-chile.png"
-                  alt="Bandera de Chile"
+                  src="icon-venezuela.png"
+                  alt="Bandera de Venezuela"
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.7, type: "spring", stiffness: 300 }}
@@ -274,7 +274,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                       style={{ cursor: "pointer" }}
                     >
                       <motion.img
-                        src="/logo-ivelpink.png"
+                        src="/logo-rosmiya.png"
                         alt="Logo"
                         onClick={LogoInicio}
                         initial={{ opacity: 0, x: -200 }}
@@ -467,7 +467,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                   <Box sx={{ display: "flex", alignItems: "center", mb: 0 }}>
                     <Box
                       component="img"
-                      src="/logo-ivelpink.png"
+                      src="/logo-rosmiya.png"
                       alt="Bienvenidos"
                       sx={{
                         width: 110,
@@ -485,7 +485,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                         letterSpacing: 0.3,
                       }}
                     >
-                      Bienvenid@ a IvelPink
+                      Bienvenid@ a rosmiya
                     </Typography>
                   </Box>
 
@@ -702,7 +702,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
             color: "#1a237e",
           }}
         >
-          Presentación IvelPink - PDF
+          Presentación rosmiya - PDF
           <IconButton aria-label="close" onClick={handleClosePDF} sx={{ position: "absolute", right: 12, top: 12, color: "#1a237e" }}>
             <CloseIcon />
           </IconButton>

@@ -221,7 +221,7 @@ const ConcursoRegistrar = ({ open, onClose }) => {
         const validar = async () => {
             if (codigo.length >= 8) {
                 const match = await ValidarCodigoConcurso(
-                    "https://ivelpink.s3.us-east-2.amazonaws.com/Concurso.xlsx",
+                    "https://rosmiya.s3.us-east-2.amazonaws.com/Concurso.xlsx",
                     codigo
                 );
 
@@ -314,7 +314,7 @@ const ConcursoRegistrar = ({ open, onClose }) => {
                                 </Typography>
                                 <Typography align="center" sx={{ color: "#444", fontSize: "0.95rem" }}>
                                     Deberás subir una historia a tu Instagram y seguirnos en{" "}
-                                    <Box component="span" sx={{ fontWeight: 600, color: "#d81b60" }}>@ivelpink.cl</Box>
+                                    <Box component="span" sx={{ fontWeight: 600, color: "#d81b60" }}>@rosmiya.cl</Box>
                                 </Typography>
                             </Box>
                         </DialogContent>
@@ -374,8 +374,8 @@ const ConcursoRegistrar = ({ open, onClose }) => {
 
                                 <Box
                                     component="img"
-                                    src="/logo-ivelpink.png"
-                                    alt="IvelPink"
+                                    src="/logo-rosmiya.png"
+                                    alt="rosmiya"
                                     sx={{
                                         height: 28,
                                         animation: `${fadeInUp} 0.6s ease-out`,
@@ -608,7 +608,7 @@ const ConcursoRegistrar = ({ open, onClose }) => {
                                                     seguirnos en{" "}
                                                     <Box
                                                         component="a"
-                                                        href="https://www.instagram.com/ivelpink.cl"
+                                                        href="https://www.instagram.com/rosmiyasc/"
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         sx={{
@@ -621,7 +621,7 @@ const ConcursoRegistrar = ({ open, onClose }) => {
                                                             display: "inline",
                                                         }}
                                                     >
-                                                        @ivelpink.cl
+                                                        @rosmiya.cl
                                                     </Box>
                                                 </Box>
                                             </Box>

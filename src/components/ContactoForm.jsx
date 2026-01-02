@@ -56,7 +56,7 @@ const ContactoForm = ({ setSnackbar }) => {
             nombre: name,
             telefono: phone,
             mensaje: message,
-            email: "ivelpink.cl@gmail.com",
+            email: "rosmiya.cl@gmail.com",
         };
 
         if (enviarCopia && emailCopia.trim()) {
@@ -73,7 +73,7 @@ const ContactoForm = ({ setSnackbar }) => {
             .then(() => {
                 setSnackbar({
                     open: true,
-                    message: "¡Mensaje enviado con éxito a ivelpink.cl! 📬",
+                    message: "¡Mensaje enviado con éxito a rosmiya.cl! 📬",
                     type: "success"
                 });
                 setName("");

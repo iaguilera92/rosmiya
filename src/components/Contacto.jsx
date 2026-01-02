@@ -8,7 +8,7 @@ import { MapContainer, TileLayer, Marker, useMapEvent } from "react-leaflet";
 import L from "leaflet";
 import ContactoForm from './ContactoForm';
 
-const finalPosition = [-33.435054, -70.688067];
+const finalPosition = [7.7669, -72.2250];
 
 const letterVariants = {
   hidden: { opacity: 0, x: -20 },
@@ -68,7 +68,7 @@ function Contacto() {
         if (!isHovered) {
           setRotate((prevRotate) => (prevRotate + 180) % 360); // Cambia la rotación cada 7 segundos si no hay hover
         }
-      }, 6000);
+      }, 8000);
     } else {
       clearInterval(interval); // Detiene la rotación si el usuario scrollea fuera del componente
     }

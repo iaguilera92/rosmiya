@@ -51,7 +51,7 @@ function Features({ videoReady, informationsRef }) {
 
   //TRABAJOS S3
   useEffect(() => {
-    cargarTrabajos(`https://ivelpink.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${timestamp}`)
+    cargarTrabajos(`https://rosmiya.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${timestamp}`)
       .then(setTrabajos);
   }, []);
 
@@ -104,12 +104,12 @@ function Features({ videoReady, informationsRef }) {
 
   // Ahora cuentas sobre los activos
   const mayoristas = trabajosActivos.filter(t => Number(t.TipoTrabajo) === 2).length;
-  const confeccionesIvelPink = trabajosActivos.filter(t => Number(t.TipoTrabajo) === 1).length;
+  const confeccionesrosmiya = trabajosActivos.filter(t => Number(t.TipoTrabajo) === 1).length;
 
   return (
     <Box
       sx={{
-        backgroundImage: 'url(fondo-blizz-ivelpink.webp)',
+        backgroundImage: 'url(fondo-blizz-rosmiya.webp)',
         backgroundSize: 'cover',  // Asegura que la imagen cubra todo el contenedor
         backgroundPosition: 'center',  // Centra la imagen en el fondo
         backgroundAttachment: 'fixed',  // Asegura que la imagen de fondo no se mueva al hacer scroll
@@ -291,7 +291,7 @@ function Features({ videoReady, informationsRef }) {
                       },
                     }}
                   >
-                    {confeccionesIvelPink} {confeccionesIvelPink === 1 ? "Confección" : "Confecciones"}
+                    {confeccionesrosmiya} {confeccionesrosmiya === 1 ? "Confección" : "Confecciones"}
                   </Box>
                 </Box>
 

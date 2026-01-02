@@ -41,7 +41,7 @@ const Nosotros = () => {
         pb: 3.5,
         position: 'relative',
         overflow: 'hidden',
-        backgroundImage: isMobile ? 'url(fondo-blizz-ivelpink.webp)' : 'url(fondo-blizz-ivelpink.webp)',
+        backgroundImage: isMobile ? 'url(fondo-blizz-rosmiya.webp)' : 'url(fondo-blizz-rosmiya.webp)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed',
@@ -116,7 +116,7 @@ const Nosotros = () => {
             >
               <Box textAlign="center">
                 <img
-                  src="/logo-ivelpink.png"
+                  src="/logo-rosmiya.png"
                   alt="Logo"
                   style={{ maxWidth: isMobile ? '83%' : '100%', height: 'auto' }}
                 />

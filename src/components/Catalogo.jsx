@@ -42,7 +42,7 @@ const Catalogo = () => {
     const cargarDatos = async () => {
       if (cancelado) return;
       const timestamp = new Date().getTime();
-      const urlConCacheBust = `https://ivelpink.s3.us-east-2.amazonaws.com/Productos.xlsx?t=${timestamp}`;
+      const urlConCacheBust = `https://rosmiya.s3.us-east-2.amazonaws.com/Productos.xlsx?t=${timestamp}`;
 
       let datos = await cargarProductos(urlConCacheBust);
 
@@ -166,8 +166,8 @@ const Catalogo = () => {
               px: 1.2,
               position: "relative",
               backgroundImage: isMobile
-                ? "url(fondo-blizz-ivelpink.webp)"
-                : "url(fondo-blizz-ivelpink.webp)",
+                ? "url(fondo-blizz-rosmiya.webp)"
+                : "url(fondo-blizz-rosmiya.webp)",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
