@@ -317,7 +317,7 @@ function Features({ videoReady, informationsRef }) {
             </Button>
           </motion.div>
 
-          {/* CONCURSO */}
+          {/* 
           <Box sx={{ display: "flex", justifyContent: "center", my: 0 }}>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -395,7 +395,6 @@ function Features({ videoReady, informationsRef }) {
                   },
                 }}
               >
-                {/* Ícono fijo a la izquierda */}
                 <Box sx={{ position: "relative", display: "flex", alignItems: "center" }}>
                   <Box
                     component="span"
@@ -415,7 +414,6 @@ function Features({ videoReady, informationsRef }) {
                   </Box>
                 </Box>
 
-                {/* Texto: Concurso (Tiempo xx) */}
                 <Box
                   component="span"
                   className={`letter ${hasAnimated ? "animate" : ""}`}
@@ -457,7 +455,7 @@ function Features({ videoReady, informationsRef }) {
               </Button>
 
             </motion.div>
-          </Box>
+        </Box>*/}
 
           <Grid container spacing={2} justifyContent="center" mt={0.8}>
 

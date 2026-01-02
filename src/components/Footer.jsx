@@ -211,10 +211,10 @@ const Footer = () => {
           </Box>
         )}
 
-        <Typography variant="body2" align="center" mt={2} sx={{ marginTop: "5vh" }}>
+        <Typography variant="body2" align="center" mt={2} sx={{ marginTop: "5vh", color: "black" }}>
           @rosmiya 2025 {version && `- v${version}`}
         </Typography>
-        <Typography variant="body2" align="center" mt={2} sx={{ marginTop: "1vh", cursor: "pointer" }} onClick={() => window.open("http://plataformas-web.cl", "_blank")}>
+        <Typography variant="body2" align="center" mt={2} sx={{ marginTop: "1vh", cursor: "pointer", color: "black" }} onClick={() => window.open("http://plataformas-web.cl", "_blank")}>
           Diseñado por www.plataformas-web.cl
         </Typography>
       </Container>

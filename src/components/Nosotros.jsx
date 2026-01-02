@@ -53,7 +53,7 @@ const Nosotros = () => {
         <Typography
           variant={isMobile ? "h4" : "h2"}
           fontWeight={700}
-          sx={{ color: "white", display: "inline-flex" }}
+          sx={{ color: "black", display: "inline-flex" }}
         >
           {"Nosotros".split("").map((char, index) => (
             <motion.span
@@ -84,19 +84,19 @@ const Nosotros = () => {
               >
                 <Card sx={{ backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)', borderRadius: 3, p: 2 }}>
                   <CardContent>
-                    <Typography variant="h4" color="white" gutterBottom>
+                    <Typography variant="h4" color="black" gutterBottom>
                       ¿Quiénes Somos?
                     </Typography>
 
-                    <Typography variant="body1" sx={{ color: 'white', textAlign: 'justify', mb: 2 }}>
+                    <Typography variant="body1" sx={{ color: 'black', textAlign: 'justify', mb: 2 }}>
                       Somos una empresa familiar con amplia experiencia en el rubro de la confección y venta de ropa por mayor, ofreciendo productos de alta calidad para todas las temporadas.
                     </Typography>
 
-                    <Typography variant="body1" sx={{ color: 'white', textAlign: 'justify', mb: 2 }}>
+                    <Typography variant="body1" sx={{ color: 'black', textAlign: 'justify', mb: 2 }}>
                       Nos especializamos en prendas para dama, caballero y niños, con diseños exclusivos y tejidos de primera categoría, ideales para boutiques, tiendas de ropa y emprendedores.
                     </Typography>
 
-                    <Typography variant="body1" sx={{ color: 'white', textAlign: 'justify' }}>
+                    <Typography variant="body1" sx={{ color: 'black', textAlign: 'justify' }}>
                       Ofrecemos un catálogo variado y renovado constantemente, con precios competitivos y atención personalizada para ayudar a nuestros clientes a potenciar sus ventas.
                     </Typography>
                   </CardContent>
@@ -118,8 +118,13 @@ const Nosotros = () => {
                 <img
                   src="/logo-rosmiya.png"
                   alt="Logo"
-                  style={{ maxWidth: isMobile ? '83%' : '100%', height: 'auto' }}
+                  style={{
+                    maxWidth: isMobile ? '83%' : '100%',
+                    height: 'auto',
+                    filter: 'brightness(0)',
+                  }}
                 />
+
               </Box>
             </motion.div>
           </Grid>
@@ -163,7 +168,7 @@ const Nosotros = () => {
             variant={isMobile ? "h6" : "h4"}
             fontWeight={600}
             sx={{
-              color: 'white',
+              color: 'black',
               textShadow: '2px 2px 8px rgba(0,0,0,0.7)',
               textAlign: 'right',
             }}
@@ -218,17 +223,17 @@ const Nosotros = () => {
               >
                 <Card sx={{ backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)', borderRadius: 3, p: 3 }}>
                   <CardContent>
-                    <Typography variant="h4" color="white" gutterBottom>
+                    <Typography variant="h4" color="black" gutterBottom>
                       Misión
                     </Typography>
-                    <Typography variant="body1" sx={{ color: 'white', textAlign: 'left', mb: 3 }}>
+                    <Typography variant="body1" sx={{ color: 'black', textAlign: 'left', mb: 3 }}>
                       Ofrecer prendas de vestir de excelente calidad y diseño, confeccionadas con dedicación y detalle, para satisfacer las necesidades de nuestros clientes mayoristas y minoristas, proporcionando moda para todas las temporadas.
                     </Typography>
 
-                    <Typography variant="h4" color="white" gutterBottom>
+                    <Typography variant="h4" color="black" gutterBottom>
                       Visión
                     </Typography>
-                    <Typography variant="body1" sx={{ color: 'white', textAlign: 'left' }}>
+                    <Typography variant="body1" sx={{ color: 'black', textAlign: 'left' }}>
                       Ser reconocidos como un referente en la industria textil y de confección, destacando por nuestra innovación en diseño, compromiso con la calidad y excelencia en el servicio, impulsando el crecimiento de nuestros clientes en el mercado nacional e internacional.
                     </Typography>
                   </CardContent>

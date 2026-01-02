@@ -152,7 +152,7 @@ function Informations({ informationsRef, triggerInformations }) {
               width: 25,
               height: 25,
               borderRadius: "50%",
-              backgroundColor: "white",
+              backgroundColor: "black",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -178,7 +178,7 @@ function Informations({ informationsRef, triggerInformations }) {
                 height: "100%",
               }}
             >
-              <FaTshirt size={17} color="black" />
+              <FaTshirt size={15} color="white" />
             </motion.div>
           </Box>
 
@@ -335,7 +335,7 @@ function Informations({ informationsRef, triggerInformations }) {
                               height: 70,
                               borderRadius: "50%",
                               border: "2px solid white",
-                              backgroundColor: "rgb(233 144 181)",
+                              backgroundColor: "rgb(79 172 254)",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",

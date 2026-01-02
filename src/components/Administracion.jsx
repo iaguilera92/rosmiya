@@ -32,7 +32,7 @@ const Administracion = () => {
   const [logoAnimacion, setLogoAnimacion] = useState("idle"); // idle | pendulo | error
   const logoTimeoutRef = useRef(null);
   const [estadoMensaje, setEstadoMensaje] = useState("idle");
-  const [logoBase, setLogoBase] = useState("/logo-james.webp");
+  const [logoBase, setLogoBase] = useState("/user.png");
   const showSnackbar = (type, message) => {
     setSnackbar({ open: true, type, message });
     setTimeout(() => setSnackbar(prev => ({ ...prev, open: false })), 4000);
@@ -40,7 +40,7 @@ const Administracion = () => {
 
   const handleTogglePassword = () => setShowPassword((prev) => !prev);
   const getLogoAnimado = () => {
-    if (logoAnimacion === "error") return logoBase.replace(".webp", "-enojada.webp");
+    if (logoAnimacion === "error") return logoBase.replace(".png", "-enojada.webp");
     return logoBase;
   };
 
@@ -91,10 +91,9 @@ const Administracion = () => {
     };
   }, []);
 
-
   useEffect(() => {
     // Logo random inicial
-    const logos = ["/logo-james.webp", "/logo-flaca.webp", "/logo-gorda.webp"];
+    const logos = ["/user.png"];
     setLogoBase(logos[Math.floor(Math.random() * logos.length)]);
 
     // Preload de variantes "enojada"

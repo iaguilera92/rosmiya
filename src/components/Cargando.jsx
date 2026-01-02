@@ -13,6 +13,14 @@ const Cargando = () => {
     const [showStrips, setShowStrips] = useState(true);
     const [showDots, setShowDots] = useState(false);
 
+    const COLORS = {
+        strip: 'rgb(245, 245, 245)',          // tiras
+        glow: '#ffffff',                      // glow principal
+        glowSoft: 'rgba(255,255,255,0.6)',
+        glowMedium: 'rgba(255,255,255,0.4)',
+        dot: '#e5e5e5',                       // puntos
+        dotGlow: '#ffffff',
+    };
 
     useEffect(() => {
         const timerGlow = setTimeout(() => {
@@ -98,7 +106,7 @@ const Cargando = () => {
                             style={{
                                 width: '100%',
                                 height: `${100 / NUM_ROWS}%`, // Altura proporcional
-                                backgroundColor: 'rgb(255, 222, 246)',
+                                backgroundColor: COLORS.strip,
                                 margin: 0,
                                 padding: 0,
                                 border: 'none',
@@ -135,7 +143,7 @@ const Cargando = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    transform: 'translateY(-40%)',
+                    transform: 'translateY(-5%)',
                     zIndex: 3,
                     opacity: showImage ? 1 : 0,
                     transition: 'opacity 2s ease-in',
@@ -164,8 +172,11 @@ const Cargando = () => {
                                 width: '120px',
                                 height: '60px',
                                 borderRadius: '50%',
-                                background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(200,200,200,0.4) 40%, transparent 70%)',
-                                boxShadow: `0 0 12px #ffffff, 0 0 24px #e0e0e0, 0 0 36px #ffffff`,
+                                background: 'radial-gradient(circle,rgba(255, 255, 255, 0.9) 0%,rgba(255,255,255,0.35) 40%,transparent 70%)',
+                                boxShadow: `
+                    0 0 16px rgba(255,255,255,0.9),
+                    0 0 32px rgba(255,255,255,0.5)
+                    `,
                                 filter: 'blur(6px)',
                                 pointerEvents: 'none',
                                 zIndex: 0,
@@ -188,55 +199,63 @@ const Cargando = () => {
                                 height: 'auto',
                                 display: 'block',
                                 filter: glow
-                                    ? 'drop-shadow(0 0 12px #ff69b4) saturate(1.3)'
-                                    : 'none',
+                                    ? `
+        brightness(0)
+        saturate(100%)
+        drop-shadow(0 0 14px rgba(255,255,255,0.9))
+      `
+                                    : `
+        brightness(0)
+        saturate(100%)
+      `,
                                 transition: 'filter 0.6s ease-in-out',
                             }}
-
                         />
 
-                        {/* Puntos superpuestos */}
-                        {showDots && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 1, ease: 'easeOut' }}
-                                style={{
-                                    position: 'absolute',
-                                    top: '80%',     // ⬇️ más abajo
-                                    left: '100%',   // ⬅️ más cerca del logo
-                                    display: 'flex',
-                                    gap: 6,
-                                    paddingLeft: 4,
-                                }}
-                            >
-                                {[0, 1, 2].map((i) => (
-                                    <motion.div
-                                        key={i}
-                                        animate={{
-                                            y: [0, -6, 0],
-                                            scale: glow ? [1, 1.15, 1] : 1, // ⬅️ Pulsación cuando glow es true
-                                        }}
-                                        transition={{
-                                            repeat: Infinity,
-                                            duration: 1,
-                                            delay: i * 0.2,
-                                            ease: 'easeInOut',
-                                        }}
-                                        style={{
-                                            width: 10,
-                                            height: 10,
-                                            borderRadius: '50%',
-                                            backgroundColor: '#ff66cc',
-                                            boxShadow: '0 0 6px #ff99dd',
-                                            filter: glow ? 'drop-shadow(0 0 8px #ff99dd) saturate(1.3)' : 'none',
-                                            transition: 'filter 0.6s ease-in-out',
-                                        }}
-                                    />
+                        <Box
+                            sx={{
+                                height: 16,          // ⬅️ justo para las barras
+                                marginTop: 3,        // ⬅️ separación elegante
+                                display: 'flex',
+                                alignItems: 'flex-end',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            {showDots && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.6 }}
+                                    style={{
+                                        display: 'flex',
+                                        gap: 6,
+                                    }}
+                                >
+                                    {[0, 1, 2].map((i) => (
+                                        <motion.div
+                                            key={i}
+                                            animate={{
+                                                scaleY: glow ? [0.7, 1.15, 0.7] : 1, // ⬅️ más sutil
+                                                opacity: [0.6, 1, 0.6],
+                                            }}
+                                            transition={{
+                                                repeat: Infinity,
+                                                duration: 1,
+                                                delay: i * 0.15,
+                                                ease: 'easeInOut',
+                                            }}
+                                            style={{
+                                                width: 4,
+                                                height: 14,
+                                                borderRadius: 2,
+                                                backgroundColor: '#000000',
+                                            }}
+                                        />
+                                    ))}
+                                </motion.div>
+                            )}
+                        </Box>
 
-                                ))}
-                            </motion.div>
-                        )}
 
                     </motion.div>
                 </Box>
