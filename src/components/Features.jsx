@@ -18,15 +18,15 @@ dayjs.extend(duration);
 const features = [
   {
     label: "Niños",
-    imageSrc: "/ninos.jpg",
+    imageSrc: "/ninos.webp",
   },
   {
     label: "Adulto",
-    imageSrc: "/adulto.webp",
+    imageSrc: "/adultos.webp",
   },
   {
     label: "Mayoristas",
-    imageSrc: "/mayoristas.jpg",
+    imageSrc: "/mayoristas.webp",
   },
   {
     label: "Regalos",
@@ -34,7 +34,7 @@ const features = [
   },
   {
     label: "Hogar",
-    imageSrc: "/hogar.webp",
+    imageSrc: "/prendas.webp",
   },
 ];
 
@@ -171,61 +171,52 @@ function Features({ videoReady, informationsRef }) {
                 fontFamily: "Albert Sans, sans-serif",
                 fontWeight: 600,
                 color: "#fff",
+
+                // 🎨 TURQUESA PRINCIPAL
                 background:
-                  "linear-gradient(135deg, #2ecc71, #27ae60 45%, #1e8449 85%)", // 💎 Esmeralda
+                  "linear-gradient(135deg, #26c6da 0%, #00acc1 45%, #00838f 85%)",
                 backgroundSize: "200% 200%",
                 animation:
-                  "gradientShift 8s ease infinite, pulseGlow 6s ease-in-out infinite", // 💡 Pulso general
-                boxShadow: "0 6px 16px rgba(46, 204, 113, 0.4)",
+                  "gradientShift 8s ease infinite, pulseGlow 6s ease-in-out infinite",
+
+                // ✨ Glow turquesa
+                boxShadow: `
+  0 4px 12px rgba(0, 200, 210, 0.45),
+  inset 0 0 6px rgba(255,255,255,0.25)
+`,
+
                 position: "relative",
                 overflow: "hidden",
                 justifyContent: "center",
                 gap: 0,
                 maxWidth: { xs: "100%", md: "520px" },
-                border: "2px solid rgba(129, 245, 180, 0.9)",
+
+                border: "2px solid rgba(178, 235, 242, 0.9)", // turquesa claro
                 zIndex: 1,
                 transition: "all 0.3s ease",
 
+                // 🔥 Hover
                 "&:hover": {
-                  background: "linear-gradient(135deg,#58d68d,#28b463)",
+                  background:
+                    "linear-gradient(135deg, #4dd0e1, #26c6da, #00acc1)",
                   boxShadow:
-                    "0 0 8px rgba(46,204,113,.8), inset 0 0 8px rgba(255,255,255,0.3)",
+                    "0 0 10px rgba(0,220,230,.9), inset 0 0 8px rgba(255,255,255,0.35)",
                 },
 
-                /* ✨ Efecto hover: reloj más brillante y rápido */
+                /* ✨ Hover icon (si hay iconos dentro) */
                 "&:hover .MuiSvgIcon-root": {
-                  filter: "drop-shadow(0 0 14px rgba(129,245,180,1))",
+                  filter: "drop-shadow(0 0 14px rgba(0,220,230,1))",
                   animation: "clock 4s linear infinite !important",
                 },
 
-                /* 💥 Destello radial al hacer click */
+                /* 💥 Click feedback */
                 "&:active::before": {
                   background:
-                    "radial-gradient(circle at center, rgba(129,245,180,0.5) 0%, transparent 70%)",
+                    "radial-gradient(circle at center, rgba(77,208,225,0.55) 0%, transparent 70%)",
                   animation: "none",
                 },
 
-                /* ✨ BRILLO EXTERNO — Border Sweep + Pulse */
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  inset: "-2px",
-                  borderRadius: "inherit",
-                  background:
-                    "linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.9) 10%, #b9f6ca 20%, rgba(255,255,255,0.9) 30%, transparent 40%)",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "300% 300%",
-                  animation:
-                    "shineBorderSweep 3s linear infinite, pulseGlow 4s ease-in-out infinite",
-                  pointerEvents: "none",
-                  zIndex: 2,
-                  mask:
-                    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-                  maskComposite: "exclude",
-                  WebkitMask:
-                    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-                  WebkitMaskComposite: "xor",
-                },
+
 
                 /* ✨ BRILLO INTERNO — Sheen diagonal */
                 "&::after": {
@@ -245,21 +236,16 @@ function Features({ videoReady, informationsRef }) {
                   animation: "shineDiagonal 1.2s ease-in-out",
                 },
 
+                // 🎞 Animaciones
                 "@keyframes shineBorderSweep": {
                   "0%": { backgroundPosition: "-300% 0" },
                   "100%": { backgroundPosition: "300% 0" },
                 },
 
-                "@keyframes pulseGlow": {
-                  "0%, 100%": {
-                    filter: "drop-shadow(0 0 6px rgba(129,245,180,.35))",
-                  },
-                  "50%": { filter: "drop-shadow(0 0 14px rgba(129,245,180,.85))" },
-                },
 
                 "@keyframes shineDiagonal": {
-                  "0%": { transform: "translateX(-120%) rotate(0deg)" },
-                  "100%": { transform: "translateX(120%) rotate(0deg)" },
+                  "0%": { transform: "translateX(-120%)" },
+                  "100%": { transform: "translateX(120%)" },
                 },
 
                 "@keyframes gradientShift": {
@@ -269,6 +255,7 @@ function Features({ videoReady, informationsRef }) {
                 },
               }}
             >
+
               {/* 🌟 Contenido principal */}
               <Box
                 sx={{
@@ -281,20 +268,23 @@ function Features({ videoReady, informationsRef }) {
                   zIndex: 3,
                 }}
               >
-                {/* 🕓 Reloj con posición y animación */}
+                {/* 🕓 Reloj centrado al inicio y luego se mueve a la izquierda */}
                 <motion.div
                   key="reloj"
                   initial={{ opacity: 0, scale: 1.2 }}
                   animate={
                     hasAnimated
-                      ? { opacity: 1, scale: 1.2 }
+                      ? {
+                        opacity: 1,
+                        scale: 1.2,
+                      }
                       : { opacity: 0, scale: 0.7 }
                   }
                   transition={{ duration: 0.6, ease: "easeOut" }}
                   style={{
                     position: "absolute",
                     left: "48%",
-                    top: "15%",
+                    top: "7%",
                     transform: "translate(-50%, -50%)",
                   }}
                 >
@@ -303,9 +293,9 @@ function Features({ videoReady, informationsRef }) {
                     animate={
                       hasAnimated
                         ? {
-                          x: [0, 0, isMobile ? "-116px" : "-130px"],
-                          y: [0, 0, "-2px"],
-                          scale: [1.4, 1.3, 0.7],
+                          x: [0, 0, isMobile ? "-90px" : "-115px"],
+                          y: [0, 0, "2px"], // 🔼 mantiene alineado con el texto
+                          scale: [1.4, 1.3, 0.7]
                         }
                         : { x: 0, y: 0, scale: 1.5 }
                     }
@@ -314,23 +304,29 @@ function Features({ videoReady, informationsRef }) {
                       ease: "easeInOut",
                       times: [0, 0.66, 1],
                     }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
-                    <PrecisionManufacturingRoundedIcon
+                    <AccessTimeFilledRoundedIcon
                       sx={{
-                        fontSize: { xs: 28, sm: 30 },
-                        color: "#fff",
-                        filter: "drop-shadow(0 0 8px rgba(46,204,113,.9))",
-                        animation: "phonePulse 3s ease-in-out infinite",
-                        transformOrigin: "center",
-                        "@keyframes phonePulse": {
-                          "0%, 100%": {
-                            transform: "scale(1)",
-                            filter: "drop-shadow(0 0 8px rgba(46,204,113,.9))",
-                          },
-                          "50%": {
-                            transform: "scale(1.15)",
-                            filter: "drop-shadow(0 0 16px rgba(129,245,180,1))",
-                          },
+                        fontSize: { xs: 26, sm: 28 },
+                        color: "#ffffff",
+
+                        // 🎨 Glow turquesa frío (coherente con el fondo)
+                        filter: `
+      drop-shadow(0 0 6px rgba(0, 200, 210, .55))
+      drop-shadow(0 0 14px rgba(0, 220, 230, .45))
+    `,
+
+                        animation: "clock 12s linear infinite",
+                        transformOrigin: "50% 50%",
+
+                        "@keyframes clock": {
+                          "0%": { transform: "rotate(0deg)" },
+                          "100%": { transform: "rotate(360deg)" },
                         },
                       }}
                     />
@@ -375,16 +371,40 @@ function Features({ videoReady, informationsRef }) {
                       py: 0.4,
                       borderRadius: "8px",
                       fontWeight: 700,
-                      background:
-                        "linear-gradient(135deg, #2ecc71, #27ae60, #1e8449)",
-                      border: "2px solid rgba(255,255,255,.8)",
-                      boxShadow:
-                        "0 0 6px rgba(46,204,113,0.5), inset 0 0 6px rgba(255,255,255,0.25)",
+
+                      // 🎨 TURQUESA
+                      background: "linear-gradient(135deg, #26c6da, #00838f)",
+
+                      color: "#fff",
+                      border: "2px solid rgba(255,255,255,.85)",
+
+                      // ✨ Glow turquesa
+                      boxShadow: `
+  inset 0 0 6px rgba(255,255,255,0.25),
+  inset 0 0 10px rgba(0, 200, 210, 0.35)
+`,
+
+
                       whiteSpace: "nowrap",
+                      position: "relative",
+                      zIndex: 1,
+                      transition: "all .25s ease",
+
+                      // 🔥 Hover
+                      "&:hover": {
+                        background:
+                          "linear-gradient(135deg, #4dd0e1, #26c6da, #00acc1)",
+                        boxShadow: `
+    inset 0 0 8px rgba(255,255,255,0.35),
+    inset 0 0 14px rgba(0,220,230,.55)
+  `,
+                      },
+
                     }}
                   >
                     Mayoristas
                   </Box>
+
 
                   {/* 🖱️ Clic animado */}
                   <Box
@@ -457,7 +477,10 @@ function Features({ videoReady, informationsRef }) {
                           style={{
                             width: "100%",
                             height: "100%",
-                            objectFit: "cover",
+                            objectPosition:
+                              feature.label === "Adulto"
+                                ? "center 30%"   // baja la imagen (muestra más arriba)
+                                : "top",
                           }}
                         />
 

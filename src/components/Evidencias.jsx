@@ -169,7 +169,7 @@ const Evidencias = () => {
                 >
                     {/* Video detrás */}
                     <motion.video
-                        src="/video-mano-celular.mp4"
+                        src="/video-insta.mp4"
                         autoPlay
                         loop
                         muted

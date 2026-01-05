@@ -14,7 +14,7 @@ const Cargando = () => {
     const [showDots, setShowDots] = useState(false);
 
     const COLORS = {
-        strip: 'rgb(245, 245, 245)',          // tiras
+        strip: 'rgb(248, 252, 252)', // blanco frío, NO gris
         glow: '#ffffff',                      // glow principal
         glowSoft: 'rgba(255,255,255,0.6)',
         glowMedium: 'rgba(255,255,255,0.4)',
@@ -76,7 +76,7 @@ const Cargando = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                bgcolor: 'white',
+                bgcolor: '#f9fefe',
                 zIndex: 9999,
             }}
         >
@@ -126,15 +126,21 @@ const Cargando = () => {
                 sx={{
                     position: 'absolute',
                     inset: 0,
-                    backgroundImage: isMobile ? 'url(fondo-rosmiya-mobile.webp)' : 'url(footer-rosmiya.avif)',
+                    backgroundImage: isMobile
+                        ? 'url(fondo-rosmiya-mobile.webp)'
+                        : 'url(footer-rosmiya.avif)',
                     backgroundSize: 'cover',
-                    backgroundPosition: { xs: 'center 100%', md: 'center 100%' },
+                    backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     zIndex: 1,
                     opacity: showImage ? 1 : 0,
-                    animation: 'fadeInBg 2s ease-in forwards', // ejemplo animación
+                    animation: 'fadeInBg 2s ease-in forwards',
+
+                    // 🔑 CLAVE
+                    filter: 'brightness(1.05) saturate(1.05)',
                 }}
             />
+
 
             {/* Contenido */}
             <Box

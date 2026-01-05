@@ -20,7 +20,7 @@ function Hero({ informationsRef, setVideoReady }) {
 
   const titulos = [
     { title: "Producción para mayoristas", description: "" },
-    { title: "Venta de prendas", description: "" },
+    { title: "Arreglos de ropa", description: "" },
     { title: "Confección a la medida", description: "" },
   ];
 

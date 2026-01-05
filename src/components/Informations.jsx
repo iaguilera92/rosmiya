@@ -30,6 +30,25 @@ const promotions = [
   },
   {
     id: 2,
+    title: "🧷Arreglos y composturas de ropa",
+    description:
+      "Realizamos arreglos de ropa con terminaciones profesionales: ajustes de talla, bastas, cierres, reparaciones y más.",
+    image: "/Informations-3.webp",
+    price: "Consulta con nosotros",
+    bgColor:
+      "linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2))",
+    textColor: "white",
+    descriptors: [
+      "✂️ Ajustes de talla y entalles.",
+      "👖 Bastas y dobladillos.",
+      "🧵 Reparación de costuras y cierres.",
+      "👗 Adaptaciones en vestidos y prendas.",
+      "⏱️ Trabajo prolijo y rápido.",
+      "🤍 Cuidamos cada prenda como nueva.",
+    ],
+  },
+  {
+    id: 3,
     title: "✂️Confección de nuestro taller",
     description: "Ofrecemos prendas confeccionadas en nuestro taller, listas para entrega inmediata o con personalización a pedido.",
     image: "/Informations-2.webp",
@@ -44,25 +63,9 @@ const promotions = [
       "📐 Ajustes y tallas precisas.",
       "✨ Estilo único garantizado."
     ]
-  },
-  {
-    id: 3,
-    title: "🚚Envíos a todo Venezuela",
-    description: "Realizamos envíos de nuestras confecciones a todo Venezuela, con atención dedicada, rapidez y seguimiento constante.",
-    image: "/Informations-3.webp",
-    price: "Consulta con nosotros",
-    bgColor: "linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2))",
-    textColor: "white",
-    descriptors: [
-      "📦 Entregas rápidas y seguras.",
-      "🚀 Despachos a todo Venezuela.",
-      "⏱️ Cumplimos los plazos.",
-      "🏠 Directo a tu puerta.",
-      "🌎 Cobertura nacional completa.",
-      "🤝 Confianza en cada envío."
-    ]
   }
 ];
+
 
 
 function Informations({ informationsRef, triggerInformations }) {
