@@ -126,18 +126,28 @@ const Evidencias = () => {
                     >
                         <Typography
                             sx={{
-                                fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.5rem' },
-                                fontWeight: 600,
-                                color: '#2f3e46',
+                                fontSize: { xs: '2.4rem', sm: '3rem', md: '3.8rem' },
+                                fontWeight: 700,
                                 fontFamily: `'Montserrat', 'Segoe UI', sans-serif`,
                                 px: 4,
+                                color: '#ffffff',
+                                letterSpacing: '0.5px',
+                                textShadow: `
+      2px 2px 0 #000,
+      -2px 2px 0 #000,
+      2px -2px 0 #000,
+      -2px -2px 0 #000,
+      0 0 20px rgba(0,0,0,0.85),
+      0 0 40px rgba(0,0,0,0.55)
+    `,
                             }}
                         >
-                            Diseño y costura en{'  '}
+                            Diseño y costura en{' '}
                             <span style={{ color: '#5fb3a2' }}>
                                 perfecta armonía.
                             </span>
                         </Typography>
+
 
 
                     </motion.div>

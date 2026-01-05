@@ -7,24 +7,39 @@ import { useNavigate } from "react-router-dom";
 import "./css/Features.css"; // Importamos el CSS
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import ConcursoRegistrar from "./ConcursoRegistrar";
 import DialogTrabajos from "./DialogTrabajos";
 import { cargarTrabajos } from "../helpers/HelperTrabajos";
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import PrecisionManufacturingRoundedIcon from '@mui/icons-material/PrecisionManufacturingRounded';
 
 dayjs.extend(duration);
 
 // DATOS
 const features = [
-  { imageSrc: '/producto4.webp', label: 'Pijamas' },
-  { imageSrc: 'https://m.media-amazon.com/images/I/71d9aL875PL._AC_UY580_.jpg', label: 'Invierno' },
-  { imageSrc: '/productos/producto-5.webp', label: 'Accesorios' },
-  { imageSrc: 'https://img.ltwebstatic.com/images3_pi/2023/07/21/16899049705cd10efc724e3b9c5d715c6f1a20faa8_thumbnail_405x.webp', label: 'Verano' },
-  { imageSrc: 'https://img.ltwebstatic.com/images3_pi/2025/03/20/3a/17424556395aa953a27574ca9beac76a8ca40d94ba_thumbnail_405x.webp', label: 'Shorts' },
+  {
+    label: "Niños",
+    imageSrc: "/ninos.jpg",
+  },
+  {
+    label: "Adulto",
+    imageSrc: "/adulto.webp",
+  },
+  {
+    label: "Mayoristas",
+    imageSrc: "/mayoristas.jpg",
+  },
+  {
+    label: "Regalos",
+    imageSrc: "/regalos.webp",
+  },
+  {
+    label: "Hogar",
+    imageSrc: "/hogar.webp",
+  },
 ];
 
-const disabledLabels = ['Verano', 'Jeans', 'Shorts'];
+const disabledLabels = ["Regalos"]; // ejemplo
+
 
 
 // EFECTOS
@@ -140,367 +155,270 @@ function Features({ videoReady, informationsRef }) {
               minHeight: "60px",
               display: "flex",
               justifyContent: "center",
-              marginTop: "0px",
-              marginBottom: "5px",
+              marginTop: "10px",
+              marginBottom: "16px",
             }}
           >
-
             <Button
               onClick={handleTrabajosClick}
+              variant="contained"
+              fullWidth
               sx={{
-                width: isMobile ? "360px" : "520px",
-                minWidth: "360px !important",
-                height: "50px",
+                minWidth: { xs: "320px", sm: "360px" },
+                height: "58px",
+                borderRadius: "14px",
                 textTransform: "none",
                 fontFamily: "Albert Sans, sans-serif",
                 fontWeight: 600,
                 color: "#fff",
-
-                // 🎨 TURQUESA PRINCIPAL
                 background:
-                  "linear-gradient(0deg, rgba(38,198,218,1) 0%, rgba(0,172,193,1) 100%)",
-
+                  "linear-gradient(135deg, #2ecc71, #27ae60 45%, #1e8449 85%)", // 💎 Esmeralda
+                backgroundSize: "200% 200%",
+                animation:
+                  "gradientShift 8s ease infinite, pulseGlow 6s ease-in-out infinite", // 💡 Pulso general
+                boxShadow: "0 6px 16px rgba(46, 204, 113, 0.4)",
                 position: "relative",
                 overflow: "hidden",
                 justifyContent: "center",
                 gap: 0,
+                maxWidth: { xs: "100%", md: "520px" },
+                border: "2px solid rgba(129, 245, 180, 0.9)",
+                zIndex: 1,
+                transition: "all 0.3s ease",
 
-                // ✨ Glow turquesa
-                boxShadow: `
-      0 6px 14px rgba(0,0,0,0.2),
-      0 0 18px rgba(0, 200, 210, 0.6),
-      inset 0 0 6px rgba(255,255,255,0.25)
-    `,
-
-                border: "1px solid rgba(255,255,255,0.85)",
-
-                // 🔥 Hover
                 "&:hover": {
-                  background:
-                    "linear-gradient(0deg, rgba(64,224,208,1) 0%, rgba(0,188,212,1) 100%)",
-                  boxShadow: `
-        0 8px 18px rgba(0,0,0,0.25),
-        0 0 22px rgba(0, 220, 230, 0.75),
-        inset 0 0 8px rgba(255,255,255,0.25)
-      `,
+                  background: "linear-gradient(135deg,#58d68d,#28b463)",
+                  boxShadow:
+                    "0 0 8px rgba(46,204,113,.8), inset 0 0 8px rgba(255,255,255,0.3)",
                 },
 
-                // 🌟 Sheen animado
+                /* ✨ Efecto hover: reloj más brillante y rápido */
+                "&:hover .MuiSvgIcon-root": {
+                  filter: "drop-shadow(0 0 14px rgba(129,245,180,1))",
+                  animation: "clock 4s linear infinite !important",
+                },
+
+                /* 💥 Destello radial al hacer click */
+                "&:active::before": {
+                  background:
+                    "radial-gradient(circle at center, rgba(129,245,180,0.5) 0%, transparent 70%)",
+                  animation: "none",
+                },
+
+                /* ✨ BRILLO EXTERNO — Border Sweep + Pulse */
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  inset: "-2px",
+                  borderRadius: "inherit",
+                  background:
+                    "linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.9) 10%, #b9f6ca 20%, rgba(255,255,255,0.9) 30%, transparent 40%)",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "300% 300%",
+                  animation:
+                    "shineBorderSweep 3s linear infinite, pulseGlow 4s ease-in-out infinite",
+                  pointerEvents: "none",
+                  zIndex: 2,
+                  mask:
+                    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                  maskComposite: "exclude",
+                  WebkitMask:
+                    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                  WebkitMaskComposite: "xor",
+                },
+
+                /* ✨ BRILLO INTERNO — Sheen diagonal */
                 "&::after": {
                   content: '""',
                   position: "absolute",
                   inset: 0,
                   background:
-                    "linear-gradient(120deg, transparent 0%, rgba(255,255,255,.4) 50%, transparent 100%)",
+                    "linear-gradient(130deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%)",
                   transform: "translateX(-100%)",
-                  animation: "sheen 3s ease-in-out infinite",
+                  animation: "shineDiagonal 4s ease-in-out infinite",
+                  borderRadius: "inherit",
                   pointerEvents: "none",
+                  zIndex: 1,
                 },
 
-                "@keyframes sheen": {
-                  "0%": { transform: "translateX(-120%)" },
-                  "100%": { transform: "translateX(120%)" },
+                "&:hover::after": {
+                  animation: "shineDiagonal 1.2s ease-in-out",
+                },
+
+                "@keyframes shineBorderSweep": {
+                  "0%": { backgroundPosition: "-300% 0" },
+                  "100%": { backgroundPosition: "300% 0" },
+                },
+
+                "@keyframes pulseGlow": {
+                  "0%, 100%": {
+                    filter: "drop-shadow(0 0 6px rgba(129,245,180,.35))",
+                  },
+                  "50%": { filter: "drop-shadow(0 0 14px rgba(129,245,180,.85))" },
+                },
+
+                "@keyframes shineDiagonal": {
+                  "0%": { transform: "translateX(-120%) rotate(0deg)" },
+                  "100%": { transform: "translateX(120%) rotate(0deg)" },
+                },
+
+                "@keyframes gradientShift": {
+                  "0%": { backgroundPosition: "0% 50%" },
+                  "50%": { backgroundPosition: "100% 50%" },
+                  "100%": { backgroundPosition: "0% 50%" },
                 },
               }}
             >
-
-              {/* ⏩ Pop al contenido */}
-              <motion.div
-                initial={{ scale: 0.9 }} // parte un poco más chico
-                animate={hasAnimated ? { scale: 1 } : {}}
-                transition={{
-                  duration: 0.5,
-                  ease: "easeOut",
-                  delay: isMobile ? 1.5 : 1, // 🔑 espera 1s después de hasAnimated
-                }}
-                style={{ display: "flex", alignItems: "center", gap: 0 }}
-              >
-                {/* Reloj */}
-                <AccessTimeFilledRoundedIcon
-                  sx={{
-                    fontSize: { xs: 18, sm: 22 },
-                    mr: 0.5,
-                    animation: "clock 12s linear infinite",
-                    transformOrigin: "50% 50%",
-                    filter: "drop-shadow(0 0 4px rgba(255,167,38,.35))",
-                    "@keyframes clock": {
-                      "0%": { transform: "rotate(0deg)" },
-                      "100%": { transform: "rotate(360deg)" },
-                    },
-                  }}
-                />
-
-
-                {/* Texto + chips */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "nowrap",
-                    gap: { xs: 1.1, sm: 1 },
-                    overflow: "hidden",
-                    fontSize: { xs: "0.65rem", sm: "0.9rem" },
-                  }}
-                >
-                  <span>En Producción:</span>
-
-                  <Box
-                    sx={{
-                      minWidth: { xs: 90, sm: 120 },
-                      textAlign: "center",
-                      px: { xs: 0.6, sm: 1.2 },
-                      py: 0.4,
-                      borderRadius: "8px",
-                      fontWeight: 700,
-
-                      // 🎨 TURQUESA
-                      background: "linear-gradient(135deg, #26c6da, #00838f)",
-
-                      color: "#fff",
-                      border: "2px solid rgba(255,255,255,.85)",
-
-                      // ✨ Glow turquesa
-                      boxShadow: `
-      0 0 6px rgba(0, 200, 210, .6),
-      inset 0 0 6px rgba(255,255,255,0.25)
-    `,
-
-                      whiteSpace: "nowrap",
-                      position: "relative",
-                      zIndex: 1,
-                      transition: "all .25s ease",
-
-                      // 🔥 Hover
-                      "&:hover": {
-                        borderColor: "#fff",
-                        boxShadow: `
-        0 0 10px rgba(0, 220, 230, .8),
-        inset 0 0 8px rgba(255,255,255,0.35)
-      `,
-                        background: "linear-gradient(135deg, #4dd0e1, #00acc1)",
-                      },
-                    }}
-                  >
-
-                    {mayoristas}{" "}
-                    {mayoristas === 1 ? "Mayorista" : "Mayoristas"}
-                  </Box>
-
-
-                  <Box
-                    sx={{
-                      minWidth: { xs: 90, sm: 120 },
-                      textAlign: "center",
-                      px: { xs: 0.6, sm: 1.2 },
-                      py: 0.4,
-                      borderRadius: "8px",
-                      fontWeight: 700,
-
-                      // 🎨 TURQUESA
-                      background: "linear-gradient(135deg, #26c6da, #00838f)",
-
-                      color: "#fff",
-                      border: "2px solid rgba(255,255,255,.85)",
-
-                      // ✨ Glow turquesa
-                      boxShadow: `
-      0 0 6px rgba(0, 200, 210, .6),
-      inset 0 0 6px rgba(255,255,255,0.25)
-    `,
-
-                      whiteSpace: "nowrap",
-                      position: "relative",
-                      zIndex: 1,
-                      transition: "all .25s ease",
-
-                      // 🔥 Hover
-                      "&:hover": {
-                        borderColor: "#fff",
-                        boxShadow: `
-        0 0 10px rgba(0, 220, 230, .8),
-        inset 0 0 8px rgba(255,255,255,0.35)
-      `,
-                        background: "linear-gradient(135deg, #4dd0e1, #00acc1)",
-                      },
-                    }}
-                  >
-
-                    {confeccionesrosmiya} {confeccionesrosmiya === 1 ? "Confección" : "Confecciones"}
-                  </Box>
-                </Box>
-
-                {/* Flecha */}
-                <motion.div
-                  initial={{ x: 0 }}
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                  whileTap={{ scale: 0.85 }}
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  <ChevronRightRoundedIcon
-                    sx={{
-                      fontSize: { xs: 18, sm: 22 },
-                      transition: "transform .25s ease",
-                      ".MuiButton-root:hover &": {
-                        transform: "translateX(6px)",
-                      },
-                    }}
-                  />
-                </motion.div>
-              </motion.div>
-            </Button>
-          </motion.div>
-
-          {/* 
-          <Box sx={{ display: "flex", justifyContent: "center", my: 0 }}>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
-              }
-              transition={{
-                duration: 0.8,
-                ease: "easeOut",
-                delay: isMobile ? 0.8 : 0.3,
-              }}
-              style={{
-                minHeight: "60px",
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "0px",
-                marginBottom: "5px",
-              }}
-            >
-              <Button
-                onClick={() => setDialogOpen(true)}
-                variant="contained"
+              {/* 🌟 Contenido principal */}
+              <Box
                 sx={{
-                  width: isMobile ? "360px" : "520px",
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  letterSpacing: "3.1px",
-                  fontFamily: "albert sans, sans-serif",
-                  border: "1px solid white",
-                  fontSize: { xs: "10px", sm: "1.1rem" },
+                  position: "relative",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  position: "relative",
-                  overflow: "hidden",
-                  height: "50px",
-                  color: "#fff",
-                  background: "linear-gradient(0deg, #ba68c8 0%, #e1bee7 100%)", // 💜 morado claro degradado
-                  boxShadow: `
-      0 6px 14px rgba(0,0,0,0.2),
-      0 0 18px rgba(186,104,200,0.5),
-      inset 0 0 6px rgba(255,255,255,0.2)
-    `,
-                  transition: "all .25s ease",
-
-                  "&:hover": {
-                    background: "linear-gradient(0deg, #ab47bc 0%, #d1c4e9 100%)",
-                    boxShadow: `
-    0 8px 18px rgba(0,0,0,0.25),
-    0 0 22px rgba(171,71,188,0.65),
-    inset 0 0 8px rgba(255,255,255,0.25)
-  `,
-                  },
-                  "&:hover .icon": {
-                    opacity: 1,
-                    transform: "translateX(-10px)",
-                  },
-                  "&:hover .letter": {
-                    transform: "translateX(15px)",
-                  },
-
-                  "&::after": {
-                    content: '""',
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 50%, transparent 100%)",
-                    transform: "translateX(-100%)",
-                    animation: "sheen 3s ease-in-out infinite",
-                    pointerEvents: "none",
-                  },
-
-                  "@keyframes sheen": {
-                    "0%": { transform: "translateX(-120%)" },
-                    "100%": { transform: "translateX(120%)" },
-                  },
+                  width: "100%",
+                  overflow: "visible",
+                  zIndex: 3,
                 }}
               >
-                <Box sx={{ position: "relative", display: "flex", alignItems: "center" }}>
-                  <Box
-                    component="span"
-                    className={`icon ${hasAnimated ? "animate" : ""}`}
-                    sx={{
-                      position: "absolute",
-                      left: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      opacity: hasAnimated ? 0 : 1,
-                      transform: hasAnimated ? "translateX(10px)" : "translateX(0)",
-                      transition: "all 1s ease",
-                      zIndex: 2,
-                    }}
-                  >
-                    <span style={{ fontSize: "1.3rem" }}>🌷</span>
-                  </Box>
-                </Box>
-
-                <Box
-                  component="span"
-                  className={`letter ${hasAnimated ? "animate" : ""}`}
-                  sx={{
-                    ml: 1.5,
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: isMobile ? "11px" : "15px",
-                    fontWeight: 600,
-                    transition: "all 1s ease",
-                    transform: hasAnimated ? "translateX(0)" : "translateX(15px)",
-                    whiteSpace: "nowrap",
-                    gap: "4px",
+                {/* 🕓 Reloj con posición y animación */}
+                <motion.div
+                  key="reloj"
+                  initial={{ opacity: 0, scale: 1.2 }}
+                  animate={
+                    hasAnimated
+                      ? { opacity: 1, scale: 1.2 }
+                      : { opacity: 0, scale: 0.7 }
+                  }
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  style={{
+                    position: "absolute",
+                    left: "48%",
+                    top: "15%",
+                    transform: "translate(-50%, -50%)",
                   }}
                 >
-                  <Box
-                    component="span"
+                  <motion.div
+                    initial={{ x: 0, y: 0, scale: 1.5 }}
+                    animate={
+                      hasAnimated
+                        ? {
+                          x: [0, 0, isMobile ? "-116px" : "-130px"],
+                          y: [0, 0, "-2px"],
+                          scale: [1.4, 1.3, 0.7],
+                        }
+                        : { x: 0, y: 0, scale: 1.5 }
+                    }
+                    transition={{
+                      duration: 3,
+                      ease: "easeInOut",
+                      times: [0, 0.66, 1],
+                    }}
+                  >
+                    <PrecisionManufacturingRoundedIcon
+                      sx={{
+                        fontSize: { xs: 28, sm: 30 },
+                        color: "#fff",
+                        filter: "drop-shadow(0 0 8px rgba(46,204,113,.9))",
+                        animation: "phonePulse 3s ease-in-out infinite",
+                        transformOrigin: "center",
+                        "@keyframes phonePulse": {
+                          "0%, 100%": {
+                            transform: "scale(1)",
+                            filter: "drop-shadow(0 0 8px rgba(46,204,113,.9))",
+                          },
+                          "50%": {
+                            transform: "scale(1.15)",
+                            filter: "drop-shadow(0 0 16px rgba(129,245,180,1))",
+                          },
+                        },
+                      }}
+                    />
+
+                  </motion.div>
+                </motion.div>
+
+                {/* 📋 Texto + chip + clic */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{
+                    delay: 2.8,
+                    duration: 0.8,
+                    ease: "easeOut",
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    marginLeft: "35px",
+                    zIndex: 2,
+                  }}
+                >
+                  <Typography
                     sx={{
+                      fontSize: { xs: "0.65rem", sm: "0.85rem" },
+                      fontWeight: 600,
+                      whiteSpace: "nowrap",
+                      fontFamily: "Poppins, sans-serif",
+                    }}
+                  >
+                    EN PRODUCCIÓN:
+                  </Typography>
+
+                  {/* 🧱 Chip verde */}
+                  <Box
+                    sx={{
+                      minWidth: { xs: 90, sm: 120 },
+                      textAlign: "center",
+                      px: { xs: 0.6, sm: 1.2 },
+                      py: 0.4,
+                      borderRadius: "8px",
                       fontWeight: 700,
-                      color: "#3b0a2a", // vino oscuro, muy legible sobre fondo rosado
-                      textShadow: "0 1px 1px rgba(255,255,255,0.3)",
+                      background:
+                        "linear-gradient(135deg, #2ecc71, #27ae60, #1e8449)",
+                      border: "2px solid rgba(255,255,255,.8)",
+                      boxShadow:
+                        "0 0 6px rgba(46,204,113,0.5), inset 0 0 6px rgba(255,255,255,0.25)",
+                      whiteSpace: "nowrap",
                     }}
                   >
-                    Concurso
+                    Mayoristas
                   </Box>
+
+                  {/* 🖱️ Clic animado */}
                   <Box
-                    component="span"
+                    component={motion.img}
+                    src="/clic.jpg"
+                    alt="clic"
+                    loading="lazy"
+                    initial={{ scale: 1, y: 0 }}
+                    animate={{ scale: [1, 0.9, 1], y: [0, 1, 0] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                    whileTap={{ scale: 0.85, rotate: -3 }}
+                    whileHover={{ scale: 1.03, y: -1 }}
                     sx={{
-                      fontWeight: 400,
-                      fontSize: isMobile ? "10px" : "13px",
-                      color: "#4a4a4a", // gris oscuro para contraste
-                      fontStyle: "italic",
+                      filter: "invert(1) brightness(2)",
+                      width: { xs: 23, sm: 25 },
+                      height: "auto",
+                      display: "block",
+                      userSelect: "none",
                     }}
-                  >
-                    (Empieza en {timeLeft})
-                  </Box>
-                </Box>
+                  />
+                </motion.div>
+              </Box>
+            </Button>
 
-              </Button>
+          </motion.div>
 
-            </motion.div>
-        </Box>*/}
 
           <Grid container spacing={2} justifyContent="center" mt={0.8}>
-
             {features.map((feature, index) => {
-              if (isMobile && index >= features.length - 2) return null;
-
               const isDisabled = disabledLabels.includes(feature.label);
-
+              if (isMobile && index >= 4) return null;
 
               return (
-                <Grid item xs={4} sm={3} md={1.2} key={index}>
+                <Grid item xs={6} sm={4} md={2.2} key={index}>
                   <motion.div
                     initial="hidden"
                     animate={hasAnimated ? "visible" : "hidden"}
@@ -509,111 +427,104 @@ function Features({ videoReady, informationsRef }) {
                   >
                     <Box
                       onClick={() => {
-                        if (!isDisabled) navigate('/catalogo');
+                        if (!isDisabled) navigate("/catalogo");
                       }}
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        textAlign: 'center',
                         cursor: isDisabled ? "not-allowed" : "pointer",
-                        opacity: isDisabled ? 0.5 : 1,
+                        opacity: isDisabled ? 0.45 : 1,
                         pointerEvents: isDisabled ? "none" : "auto",
+                        transition: "transform .3s ease",
+                        "&:hover": {
+                          transform: isDisabled ? "none" : "translateY(-4px)",
+                        },
                       }}
                     >
+                      {/* Imagen */}
                       <Box
                         sx={{
-                          width: 100,
-                          height: 100,
-                          borderRadius: '50%',
-                          overflow: 'hidden',
-                          backgroundColor: '#fff',
-                          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                          mb: 0,
-                          filter: isDisabled ? 'grayscale(100%) brightness(0.9)' : 'none',
+                          width: "100%",
+                          height: 160,
+                          borderRadius: 3,
+                          overflow: "hidden",
+                          position: "relative",
+                          boxShadow: "0 10px 28px rgba(0,0,0,0.18)",
+                          filter: isDisabled ? "grayscale(100%) brightness(0.85)" : "none",
                         }}
                       >
+                        <img
+                          src={feature.imageSrc}
+                          alt={feature.label}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+
+                        {/* Overlay */}
                         <Box
                           sx={{
-                            width: 100,
-                            height: 100,
-                            borderRadius: '50%',
-                            overflow: 'hidden',
-                            backgroundColor: '#fff',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                            mb: 1,
-                            position: 'relative',
-                            filter: isDisabled ? 'grayscale(100%) brightness(0.9)' : 'none',
+                            position: "absolute",
+                            inset: 0,
+                            background:
+                              "linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.15))",
+                          }}
+                        />
+
+                        {/* Próximamente */}
+                        {isDisabled && (
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              top: 12,
+                              right: 12,
+                              px: 1.2,
+                              py: 0.4,
+                              borderRadius: "999px",
+                              backgroundColor: "rgba(255,255,255,.85)",
+                              fontSize: "0.7rem",
+                              fontWeight: 700,
+                              color: "#444",
+                            }}
+                          >
+                            Próximamente
+                          </Box>
+                        )}
+                      </Box>
+
+                      {/* Texto */}
+                      <Box sx={{ mt: 1.2, textAlign: "center" }}>
+                        <Typography
+                          sx={{
+                            fontWeight: 600,
+                            color: "#0f172a",
+                            fontFamily: '"Poppins", sans-serif',
                           }}
                         >
-                          <img
-                            src={feature.imageSrc}
-                            alt={feature.label}
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',
-                            }}
-                          />
+                          {feature.label}
+                        </Typography>
 
-                          {isDisabled && (
-                            <Box
-                              sx={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '-20%',
-                                width: '140%',
-                                height: '3px',
-                                backgroundColor: 'rgba(255, 0, 0, 0.6)', // rojo traslúcido o usa blanco si prefieres
-                                transform: 'rotate(-45deg) translateY(-50%)',
-                                transformOrigin: 'center',
-                                zIndex: 2,
-                              }}
-                            />
-                          )}
-                        </Box>
-
-
+                        <Typography
+                          sx={{
+                            fontSize: "0.85rem",
+                            color: "#475569",
+                          }}
+                        >
+                          {feature.description}
+                        </Typography>
                       </Box>
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          fontWeight: 500,
-                          color: isDisabled ? '#aaa' : '#fff',
-                          fontFamily: '"Poppins", sans-serif',
-                          letterSpacing: '0.3px',
-                        }}
-                      >
-                        {feature.label}
-                      </Typography>
                     </Box>
                   </motion.div>
                 </Grid>
               );
             })}
-
-
           </Grid>
+
 
 
         </Box>
       </Container >
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={3000}
-        onClose={() => setOpenSnackbar(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert
-          onClose={() => setOpenSnackbar(false)}
-          severity="info"
-          variant="filled"
-          sx={{ width: '100%', backgroundColor: '#99d7f2', color: '#fff', fontWeight: 600 }}
-        >
-          En construcción 🚧
-        </Alert>
-      </Snackbar>
-      <ConcursoRegistrar open={dialogOpen} onClose={() => setDialogOpen(false)} />
+
       <DialogTrabajos
         open={openTrabajos}
         onClose={handleCloseTrabajos}

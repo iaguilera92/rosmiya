@@ -7,26 +7,27 @@ import { motion } from "framer-motion";
 
 const data = [
   {
-    count: 50000,
-    text: "Prendas confeccionadas con amor y detalle",
-    image: "Area-1.webp",
-  },
-  {
-    count: 120,
-    text: "Clientes felices con diseños personalizados",
-    image: "Area-2.webp",
-  },
-  {
-    count: 15,
-    text: "Años de experiencia en costura profesional",
+    count: 20,
+    text: "Años perfeccionando técnicas de costura y confección",
     image: "Area-3.webp",
   },
   {
-    count: 30,
-    text: "Hilos usados por día en creaciones 🎀",
+    count: 65000,
+    text: "Prendas elaboradas con precisión, dedicación y estilo",
+    image: "Area-1.webp",
+  },
+  {
+    count: 180,
+    text: "Clientes que han confiado en diseños únicos y a medida",
+    image: "Area-2.webp",
+  },
+  {
+    count: 45,
+    text: "Proyectos activos mensuales llenos de creatividad 🧵",
     image: "Area-4.avif",
   },
 ];
+
 
 const images = ["servicios.png", "maquina-coser.webp"];
 
