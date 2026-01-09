@@ -28,6 +28,10 @@ const ConfigurarProductos = () => {
   const [dialogEditarOpen, setDialogEditarOpen] = useState(false);
   const [dialogVideoOpen, setDialogVideoOpen] = useState(false);
   const [previewImagen, setPreviewImagen] = useState(null);
+  const functionsBaseUrl = window.location.hostname === 'localhost' ? 'http://localhost:8888' : '';
+  const [subiendoImagen, setSubiendoImagen] = useState(false);
+  const [imagenActualizada, setImagenActualizada] = useState(false);
+  const [productoGuardado, setProductoGuardado] = useState(false);
 
   const [nuevoProducto, setNuevoProducto] = useState({
     IdProducto: '',
@@ -76,6 +80,11 @@ const ConfigurarProductos = () => {
     setMostrarFormulario(null);
     setDialogEditarOpen(false);
   };
+  useEffect(() => {
+    if (dialogEditarOpen) {
+      setImagenActualizada(false);
+    }
+  }, [dialogEditarOpen]);
 
 
   const handleInputChange = (e) => {
@@ -93,7 +102,7 @@ const ConfigurarProductos = () => {
       nuevoProducto.IdProducto = crypto.randomUUID();
     }
 
-    const url = `${window.location.hostname === 'localhost' ? 'http://localhost:9999' : ''}/.netlify/functions/actualizarProducto`;
+    const url = `${window.location.hostname === 'localhost' ? 'http://localhost:8888' : ''}/.netlify/functions/actualizarProducto`;
     setActualizando(true);
     try {
       const res = await fetch(url, {
@@ -122,7 +131,7 @@ const ConfigurarProductos = () => {
     setEliminando(true);
     try {
       const producto = productos[productoAEliminar];
-      const url = `${window.location.hostname === 'localhost' ? 'http://localhost:9999' : ''}/.netlify/functions/eliminarProducto`;
+      const url = `${window.location.hostname === 'localhost' ? 'http://localhost:8888' : ''}/.netlify/functions/eliminarProducto`;
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -143,7 +152,7 @@ const ConfigurarProductos = () => {
   const confirmarRestaurar = async () => {
     setRestaurando(true);
     try {
-      const url = `${window.location.hostname === 'localhost' ? 'http://localhost:9999' : ''}/.netlify/functions/restaurarProductos`;
+      const url = `${window.location.hostname === 'localhost' ? 'http://localhost:8888' : ''}/.netlify/functions/restaurarProductos`;
       const res = await fetch(url, { method: 'POST' });
       const result = await res.json();
       setSnackbar({ open: true, message: result.message || 'Productos restaurados' });
@@ -205,12 +214,18 @@ const ConfigurarProductos = () => {
                     <Box
                       sx={{
                         height: 160,
-                        backgroundImage: `url(${producto.ImageUrl || '/placeholder.webp'})`,
+                        backgroundImage: `url(${producto.ImageUrl &&
+                          producto.ImageUrl !== 'undefined' &&
+                          producto.ImageUrl.trim() !== ''
+                          ? producto.ImageUrl
+                          : '/Area-1.webp'
+                          })`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         position: 'relative',
                       }}
                     >
+
                       {/* OVERLAY */}
                       <Box
                         sx={{
@@ -539,43 +554,72 @@ const ConfigurarProductos = () => {
                           const file = e.target.files[0];
                           if (!file) return;
 
-                          // 👉 1. Preview inmediato (local)
+                          // 👉 1. Preview inmediato
+                          // Preview inmediato
                           const previewUrl = URL.createObjectURL(file);
                           setPreviewImagen(previewUrl);
 
+                          // ⏳ feedback inmediato
+                          setSubiendoImagen(true);
+
+
                           // 👉 2. Subida real a S3
                           const reader = new FileReader();
+
                           reader.onloadend = async () => {
-                            const base64 = reader.result.split(',')[1];
+                            try {
+                              const base64 = reader.result.split(',')[1];
 
-                            const res = await fetch(
-                              '/.netlify/functions/subirImagenProducto',
-                              {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                  fileBase64: base64,
-                                  contentType: file.type,
-                                }),
+                              const res = await fetch(
+                                `${functionsBaseUrl}/.netlify/functions/subirImagenProducto`,
+                                {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({
+                                    fileBase64: base64,
+                                    contentType: file.type,
+                                    productoId: nuevoProducto.IdProducto, // 🔥 CLAVE
+                                  }),
+                                }
+                              );
+
+                              if (!res.ok) {
+                                throw new Error('Error al subir imagen');
                               }
-                            );
 
-                            const { url } = await res.json();
+                              const { url } = await res.json();
 
-                            // 👉 3. Reemplaza preview por URL final
-                            setNuevoProducto((prev) => ({
-                              ...prev,
-                              ImageUrl: url,
-                            }));
+                              setNuevoProducto((prev) => ({
+                                ...prev,
+                                ImageUrl: url,
+                              }));
 
-                            // 👉 Limpia preview temporal
-                            URL.revokeObjectURL(previewUrl);
-                            setPreviewImagen(null);
+                              setSubiendoImagen(false); // 🔥 APAGAR
+                              setImagenActualizada(true);
+
+                              setTimeout(() => {
+                                setImagenActualizada(false);
+                              }, 2000);
+
+
+                            } catch (err) {
+                              console.error(err);
+                              setSnackbar({
+                                open: true,
+                                message: 'Error al subir la imagen',
+                              });
+                              setPreviewImagen(null);
+                              setSubiendoImagen(false);
+
+                            } finally {
+                              URL.revokeObjectURL(previewUrl);
+                            }
                           };
 
                           reader.readAsDataURL(file);
                         }}
                       />
+
 
                     </Button>
 
@@ -589,9 +633,77 @@ const ConfigurarProductos = () => {
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
                           boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
+                          position: 'relative',
+                          overflow: 'hidden',
                         }}
-                      />
+                      >
+                        <AnimatePresence>
+                          {/* ⏳ SUBIENDO */}
+                          {subiendoImagen && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              style={{
+                                position: 'absolute',
+                                inset: 0,
+                                backgroundColor: 'rgba(0,0,0,0.45)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 2,
+                              }}
+                            >
+                              <Typography
+                                sx={{
+                                  color: 'white',
+                                  fontWeight: 600,
+                                  background: 'rgba(0,0,0,0.35)',
+                                  px: 2,
+                                  py: 1,
+                                  borderRadius: 2,
+                                }}
+                              >
+                                ⏳ Subiendo imagen…
+                              </Typography>
+                            </motion.div>
+                          )}
+
+                          {/* ✅ OK */}
+                          {imagenActualizada && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              style={{
+                                position: 'absolute',
+                                inset: 0,
+                                backgroundColor: 'rgba(46, 125, 50, 0.55)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 3,
+                              }}
+                            >
+                              <Typography
+                                sx={{
+                                  color: 'white',
+                                  fontWeight: 700,
+                                  fontSize: '1rem',
+                                  background: 'rgba(0,0,0,0.35)',
+                                  px: 2,
+                                  py: 1,
+                                  borderRadius: 2,
+                                }}
+                              >
+                                ✅ Imagen subida! No olvidar Guardar 💾
+                              </Typography>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </Box>
                     )}
+
 
                   </Grid>
 

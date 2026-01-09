@@ -14,11 +14,12 @@ import {
   useTheme,
   useMediaQuery, Dialog, DialogTitle, DialogContent
 } from "@mui/material";
-import { Menu as MenuIcon, Home, Mail, Close } from "@mui/icons-material"; // Agregamos Close para la "X"
+import { WhatsApp as WhatsAppIcon, Menu as MenuIcon, Home, Mail, Close } from "@mui/icons-material"; // Agregamos Close para la "X"
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { motion, AnimatePresence } from "framer-motion";
+import SchoolIcon from "@mui/icons-material/School";
 import { keyframes } from "@emotion/react";
 import ViewListIcon from '@mui/icons-material/ViewList';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -29,6 +30,7 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import CloseIcon from "@mui/icons-material/Close";
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import { useLocation } from 'react-router-dom';
+import Tooltip from "@mui/material/Tooltip";
 
 
 const socialData = {
@@ -85,7 +87,9 @@ const SocialButton = ({ href, Icon, bgColor, hoverStyles }) => (
 
 const menuItems = [
   { name: "Inicio", icon: <Home /> }, { name: "Catálogo", icon: <ViewCarouselIcon /> },
-  { name: "Nosotros", icon: <GroupsIcon /> }, { name: "Contacto", icon: <Mail /> }
+  { name: "Nosotros", icon: <GroupsIcon /> }, { name: "Contacto", icon: <Mail /> },
+  { name: "Tutoriales", icon: <SchoolIcon />, disabled: true },
+
 ];
 
 function Navbar({ contactoRef, informationsRef, videoReady }) {
@@ -101,7 +105,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
   const translateY = Math.min(scrollY, maxScroll);
   const [mostrarAdmin, setMostrarAdmin] = useState(false);
   const [titulo, setTitulo] = useState("📦 Envíos a todo Venezuela");
-
+  const [mostrarTexto, setMostrarTexto] = useState(true);
 
   useEffect(() => {
     // ✅ cada vez que cambia la ruta, forzamos a mostrar el banner y el logo
@@ -110,7 +114,6 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
   }, [location.pathname]);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-  const scrollToRef = (ref, offset = -80) => ref?.current && window.scrollTo({ top: ref.current.getBoundingClientRect().top + window.scrollY + offset, behavior: 'smooth' });
   const handleOpenPDF = () => isMobile ? window.open("/plataformasweb-pdf.pdf", "_blank") : setOpenPDF(true);
   const handleClosePDF = () => setOpenPDF(false);
 
@@ -131,16 +134,28 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
 
   const handleClick = (item) => {
     setOpen(false);
+
     const actions = {
-      Contacto: () => scrollToRef(contactoRef),
-      Inicio: () => (location.pathname !== "/" ? navigate("/") : scrollToTop()),
+      Contacto: () => {
+        if (location.pathname === "/") {
+          contactoRef.current?.scrollIntoView({ behavior: "smooth" });
+        } else {
+          navigate("/", { state: { scrollTo: "contacto" } });
+        }
+      },
+
+      Inicio: () =>
+        location.pathname !== "/" ? navigate("/") : scrollToTop(),
+
       Servicios: () => navigate("/servicios"),
       Catálogo: goToCatalogo,
       Nosotros: () => navigate("/nosotros"),
       Presentación: handleOpenPDF,
     };
+
     actions[item.name]?.();
   };
+
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 50);
@@ -163,6 +178,14 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
     }
   }, []);
 
+  // ⏱️ Alternar cada 4 segundos
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      setMostrarTexto((prev) => !prev);
+    }, 4000);
+    return () => clearInterval(intervalo);
+  }, []);
+
   return (
     <>
       <motion.div
@@ -176,8 +199,11 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
         }}
       >
         <Box
+          onClick={() => {
+            window.open("https://api.whatsapp.com/send?phone=584149793355", "_blank");
+          }}
           sx={{
-            backgroundColor: "#c62828",
+            backgroundColor: "#E02424",
             height: { xs: 30, sm: 32 },
             px: 2,
             display: "flex",
@@ -189,13 +215,13 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
           }}
         >
           <AnimatePresence mode="wait">
-            {animacionMostrada && (
+            {(mostrarAnimacion || animacionMostrada) && (
               <motion.div
-                key={`banner-${location.pathname}`}  // 👈 clave única para que re-renderice en cada ruta
-                initial={{ x: 200, opacity: 0 }}
-                animate={{ x: 0, opacity }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1 }}
+                key={mostrarTexto ? "llamanos" : "telefono"}
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -100, opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -203,24 +229,74 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                   color: "white",
                   fontWeight: 600,
                   fontFamily: "Poppins, sans-serif",
-                  fontSize: "0.8rem",
+                  fontSize: "0.95rem",
+                  lineHeight: "1",
                 }}
               >
-                {titulo}
-                <motion.img
-                  src="icon-venezuela.png"
-                  alt="Bandera de Venezuela"
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.7, type: "spring", stiffness: 300 }}
-                  style={{ width: 16, height: "auto" }}
-                />
+                <span
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    fontWeight: "bold",
+                    color: "white",
+                    textShadow: `
+           -1px -1px 0 #000,  
+            1px -1px 0 #000,
+           -1px  1px 0 #000,
+            1px  1px 0 #000
+         `,
+                  }}
+                >
+                  {/* Ícono fijo */}
+                  {mostrarTexto ? (
+                    <img
+                      src="/icon-venezuela.png"
+                      alt="Bandera"
+                      style={{
+                        width: "18px",
+                        height: "auto",
+                        borderRadius: "2px",
+                        display: "inline-block",
+                      }}
+                    />
+                  ) : (
+                    <span style={{ fontSize: "1rem" }}>📞</span>
+                  )}
+
+                  {/* Texto fijo */}
+                  <span>
+                    {mostrarTexto ? "¡LLÁMANOS AHORA!" : "+58 414 979 3355"}
+                  </span>
+                </span>
+
+                {/* Botón WhatsApp solo cuando es el texto */}
+                {mostrarTexto && (
+                  <IconButton
+                    sx={{
+                      width: 20,
+                      height: 20,
+                      p: 0,
+                      backgroundColor: "#25d366",
+                      color: "#FFF",
+                      borderRadius: "50%",
+                      boxShadow: "2px 2px 3px #999",
+                      "&:hover": { backgroundColor: "#1ebe5d" },
+                      zIndex: 101,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <WhatsAppIcon sx={{ fontSize: 14 }} />
+                  </IconButton>
+                )}
               </motion.div>
+
             )}
           </AnimatePresence>
         </Box>
-      </motion.div>
-
+      </motion.div >
 
 
 
@@ -303,28 +379,43 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
               <Box sx={{ flexGrow: 1 }} />
 
               <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
-                {menuItems.map((item, index) => (
-                  <Button
-                    key={item.name}
-                    component={motion.button}
-                    custom={index}
-                    initial="hidden"
-                    animate="visible"
-                    variants={menuItemVariants}
-                    onClick={() => handleClick(item)}
-                    sx={{
-                      color: "white",
-                      fontFamily: "Poppins, sans-serif",
-                      padding: "10px 14px",
-                      background: "transparent",
-                      border: "none",
-                      "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)" }
-                    }}
-                  >
-                    {item.name}
-                  </Button>
-                ))}
+                {menuItems.map((item, index) => {
+                  const button = (
+                    <Button
+                      key={item.name}
+                      component={motion.button}
+                      custom={index}
+                      initial="hidden"
+                      animate="visible"
+                      variants={menuItemVariants}
+                      disabled={item.disabled}
+                      onClick={() => !item.disabled && handleClick(item)}
+                      sx={{
+                        color: item.disabled ? "rgba(255,255,255,0.4)" : "white",
+                        fontFamily: "Poppins, sans-serif",
+                        padding: "10px 14px",
+                        background: "transparent",
+                        border: "none",
+                        cursor: item.disabled ? "not-allowed" : "pointer",
+                        "&:hover": {
+                          backgroundColor: item.disabled
+                            ? "transparent"
+                            : "rgba(255, 255, 255, 0.1)"
+                        }
+                      }}
+                    >
+                      {item.name}
+                    </Button>
+                  );
 
+                  return item.disabled ? (
+                    <Tooltip key={item.name} title="Próximamente">
+                      <span>{button}</span>
+                    </Tooltip>
+                  ) : (
+                    button
+                  );
+                })}
               </Box>
 
               <IconButton color="inherit" edge="end" onClick={() => setOpen(!open)} sx={{ display: { xs: "block", md: "none" } }}>
@@ -415,38 +506,89 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                 variants={listVariants}
                 style={{ listStyle: "none", padding: 0, margin: 0, width: "100%" }}
               >
-                {menuItems.map((item, index) => (
-                  <ListItem
-                    key={item.name}
-                    component={motion.li}
-                    variants={itemVariants}
-                    disablePadding
-                  >
-                    <ListItemButton
-                      onClick={() => handleClick(item)}
+                {menuItems.map((item, index) => {
+                  const content = (
+                    <ListItem
+                      key={item.name}
+                      component={motion.li}
+                      variants={itemVariants}
+                      disablePadding
                       sx={{
-                        px: 2,
-                        py: 0.5,
-                        borderBottom: "1px solid rgba(255,255,255,0.1)",
-                        borderTop: index === 0 ? "1px solid rgba(255,255,255,0.2)" : "none",
-                        "&:hover": { backgroundColor: "rgba(255,255,255,0.05)" },
+                        opacity: item.disabled ? 0.45 : 1,
+                        cursor: item.disabled ? "not-allowed" : "pointer",
                       }}
                     >
-                      <ListItemText
-                        primary={
-                          <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                            <Box sx={{ color: "white", fontSize: "1.7rem", marginBottom: "-5px" }}>
-                              {item.icon}
+                      <ListItemButton
+                        disabled={item.disabled}
+                        onClick={() => !item.disabled && handleClick(item)}
+                        sx={{
+                          px: 2,
+                          py: 0.5,
+                          borderBottom: "1px solid rgba(255,255,255,0.1)",
+                          borderTop:
+                            index === 0 ? "1px solid rgba(255,255,255,0.2)" : "none",
+                          "&:hover": {
+                            backgroundColor: item.disabled
+                              ? "transparent"
+                              : "rgba(255,255,255,0.05)",
+                          },
+                        }}
+                      >
+                        <ListItemText
+                          primary={
+                            <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                              <Box
+                                sx={{
+                                  color: item.disabled
+                                    ? "rgba(255,255,255,0.4)"
+                                    : "white",
+                                  fontSize: "1.7rem",
+                                  marginBottom: "-5px",
+                                }}
+                              >
+                                {item.icon}
+                              </Box>
+
+                              <Box sx={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+                                <span
+                                  style={{
+                                    color: item.disabled
+                                      ? "rgba(255,255,255,0.5)"
+                                      : "#fff",
+                                    fontWeight: "500",
+                                    fontSize: "1.05rem",
+                                  }}
+                                >
+                                  {item.name}
+                                </span>
+
+                                {item.disabled && (
+                                  <span
+                                    style={{
+                                      color: "rgba(255,255,255,0.45)",
+                                      fontSize: "0.8rem",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    (Próximamente)
+                                  </span>
+                                )}
+                              </Box>
                             </Box>
-                            <span style={{ color: "#fff", fontWeight: "500", fontSize: "1.05rem" }}>
-                              {item.name}
-                            </span>
-                          </Box>
-                        }
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
+                          }
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+
+                  return item.disabled ? (
+                    <Tooltip key={item.name} title="Próximamente">
+                      <span>{content}</span>
+                    </Tooltip>
+                  ) : (
+                    content
+                  );
+                })}
 
 
               </motion.ul>

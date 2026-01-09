@@ -25,6 +25,15 @@ function App() {
   const [openBubble, setOpenBubble] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const contactoRef = useRef(null);
+  const scrollToRef = (ref, offset = -80) =>
+    ref?.current &&
+    window.scrollTo({
+      top:
+        ref.current.getBoundingClientRect().top +
+        window.scrollY +
+        offset,
+      behavior: "smooth",
+    });
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const informationsRef = useRef(null);
   const location = useLocation();
@@ -202,6 +211,30 @@ function App() {
 
     checkVersionAndClearCache();
   }, []);
+
+  useEffect(() => {
+    if (
+      location.pathname === "/" &&
+      location.state?.scrollTo === "contacto"
+    ) {
+      const fromOtherRoute = location.state?.fromRoute;
+
+      const scrollWhenReady = () => {
+        if (contactoRef.current) {
+          scrollToRef(
+            contactoRef,
+            fromOtherRoute ? -120 : -80 // 👈 CLAVE
+          );
+
+          window.history.replaceState({}, document.title);
+        } else {
+          requestAnimationFrame(scrollWhenReady);
+        }
+      };
+
+      scrollWhenReady();
+    }
+  }, [location.pathname, location.state]);
 
 
   return (

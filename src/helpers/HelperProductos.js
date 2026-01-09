@@ -18,8 +18,13 @@ function transformarProductos(data) {
 // Función principal exportada
 export const cargarProductos = async (urlExcel) => {
   try {
-    const response = await fetch(urlExcel);
-    if (!response.ok) throw new Error("No se pudo obtener el archivo Excel");
+    const response = await fetch(urlExcel, {
+      cache: 'no-store', // 🔥 CLAVE
+    });
+
+    if (!response.ok) {
+      throw new Error("No se pudo obtener el archivo Excel");
+    }
 
     const arrayBuffer = await response.arrayBuffer();
     const data = new Uint8Array(arrayBuffer);

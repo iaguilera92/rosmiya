@@ -1,23 +1,75 @@
 const AWS = require('aws-sdk');
-const { v4: uuid } = require('uuid');
 
+// ==========================
+// CONFIGURACIÓN S3
+// ==========================
 const s3 = new AWS.S3({
-    region: 'us-east-2',
-    accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION || 'us-east-2',
+    accessKeyId:
+        process.env.MY_AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey:
+        process.env.MY_AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY,
 });
 
-exports.handler = async (event) => {
-    try {
-        const { fileBase64, contentType } = JSON.parse(event.body);
+// ==========================
+// HEADERS CORS
+// ==========================
+const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
 
-        if (!fileBase64 || !contentType) {
-            return { statusCode: 400, body: 'Archivo inválido' };
+// ==========================
+// HANDLER
+// ==========================
+exports.handler = async (event) => {
+    // 🔹 Preflight (CORS)
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers,
+            body: '',
+        };
+    }
+
+    try {
+        if (!event.body) {
+            return {
+                statusCode: 400,
+                headers,
+                body: 'Body vacío',
+            };
         }
 
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        const { fileBase64, contentType, productoId } = JSON.parse(event.body);
+
+        // ==========================
+        // VALIDACIONES
+        // ==========================
+        if (!fileBase64 || !contentType || !productoId) {
+            return {
+                statusCode: 400,
+                headers,
+                body: 'Datos incompletos',
+            };
+        }
+
+        const allowedTypes = [
+            'image/jpeg',
+            'image/jpg',
+            'image/png',
+            'image/x-png',
+            'image/webp',
+            'image/avif',   // ✅ AVIF
+        ];
+
         if (!allowedTypes.includes(contentType)) {
-            return { statusCode: 415, body: 'Tipo no permitido' };
+            return {
+                statusCode: 415,
+                headers,
+                body: 'Tipo de imagen no permitido',
+            };
         }
 
         const extMap = {
@@ -26,25 +78,44 @@ exports.handler = async (event) => {
             'image/webp': 'webp',
         };
 
+        // ==========================
+        // CONSTRUCCIÓN KEY S3
+        // ==========================
+        const paddedId = String(productoId).padStart(6, '0');
+        const extension = extMap[contentType];
+        const key = `productos/${paddedId}/main.${extension}`;
+
         const buffer = Buffer.from(fileBase64, 'base64');
-        const key = `productos/${uuid()}/main.${extMap[contentType]}`;
 
-        await s3.putObject({
-            Bucket: process.env.BUCKET_NAME,
-            Key: key,
-            Body: buffer,
-            ContentType: contentType,
-            ACL: 'public-read',
-        }).promise();
+        // ==========================
+        // SUBIDA A S3
+        // ==========================
+        await s3
+            .putObject({
+                Bucket: process.env.BUCKET_NAME,
+                Key: key,
+                Body: buffer,
+                ContentType: contentType,
+            })
+            .promise();
 
+        // ==========================
+        // RESPUESTA OK
+        // ==========================
         return {
             statusCode: 200,
+            headers,
             body: JSON.stringify({
-                url: `https://${process.env.BUCKET_NAME}.s3.amazonaws.com/${key}`,
+                url: `https://${process.env.BUCKET_NAME}.s3.${process.env.AWS_REGION || 'us-east-2'}.amazonaws.com/${key}`,
             }),
         };
     } catch (err) {
-        console.error(err);
-        return { statusCode: 500, body: 'Error subiendo imagen' };
+        console.error('❌ Error subir imagen:', err);
+
+        return {
+            statusCode: 500,
+            headers,
+            body: 'Error subiendo imagen',
+        };
     }
 };

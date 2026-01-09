@@ -118,18 +118,19 @@ const ContactoForm = ({ setSnackbar }) => {
                     flexDirection: "column",
                     gap: 3,
                     mt: 0,
-                    backgroundColor: "#183D54",
+                    backgroundColor: "#0F4C5C",
                     padding: "20px",
                     borderRadius: 5,
-                    boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
-                    border: "1px solid #30363D",
+                    boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.18)",
+                    border: "1px solid #1F6F7A",
                     height: "auto",
                     transition: "all 0.3s ease-in-out",
                     "&:hover": {
-                        boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.3)"
+                        boxShadow: "0px 12px 22px rgba(0, 0, 0, 0.28)"
                     }
                 }}
             >
+
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -144,7 +145,7 @@ const ContactoForm = ({ setSnackbar }) => {
                             }}
                             error={Boolean(errors.name)}
                             sx={{
-                                backgroundColor: "#132D40",
+                                backgroundColor: "#123F4A",
                                 borderRadius: 2,
                                 input: { color: "#E6EDF3", fontSize: "0.9rem" },
                                 label: { color: errors.name ? "#ff4d4f" : "#E6EDF3" },
@@ -194,7 +195,7 @@ const ContactoForm = ({ setSnackbar }) => {
                                 sx={{
                                     opacity: isSubmitting ? 0.6 : 1,
                                     pointerEvents: isSubmitting ? "none" : "auto",
-                                    backgroundColor: "#132D40",
+                                    backgroundColor: "#123F4A",
                                     borderRadius: 2,
                                     input: { color: "#E6EDF3", fontSize: "0.9rem" },
                                     label: { color: errors.phone ? "#ff4d4f" : "#E6EDF3" },
@@ -254,7 +255,7 @@ const ContactoForm = ({ setSnackbar }) => {
                                     error={Boolean(!emailCopia.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) && emailCopia.length > 0}
                                     sx={{
                                         width: "200px",
-                                        backgroundColor: "#132D40",
+                                        backgroundColor: "#123F4A",
                                         borderRadius: 2,
 
                                         input: {
@@ -316,7 +317,7 @@ const ContactoForm = ({ setSnackbar }) => {
                             onChange={(e) => setMessage(e.target.value)}
                             error={Boolean(errors.message)}
                             sx={{
-                                backgroundColor: "#132D40",
+                                backgroundColor: "#123F4A",
                                 borderRadius: 2,
                                 textarea: { color: "#E6EDF3", fontSize: "0.9rem" },
                                 label: { color: errors.message ? "#ff4d4f" : "#E6EDF3" },

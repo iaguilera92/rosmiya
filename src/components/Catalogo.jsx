@@ -159,7 +159,7 @@ const Catalogo = () => {
             maxWidth={false}
             disableGutters
             sx={{
-              overflowX: "hidden",        // 👈 solo esto
+              overflowX: "hidden",
               minHeight: "100vh",
               width: "100%",
               py: 14,
@@ -171,9 +171,21 @@ const Catalogo = () => {
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
+
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                inset: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.15)", // 👈 ajusta aquí
+                zIndex: 0,
+              },
+
+              "& > *": {
+                position: "relative",
+                zIndex: 1,
+              },
             }}
           >
-
             {
               isMobile ? (
                 grupos.map((grupo, grupoIndex) => (
@@ -610,8 +622,9 @@ const Catalogo = () => {
       ) :
         (
           <Cargando />
-        )}
-    </Box>
+        )
+      }
+    </Box >
   )
 };
 

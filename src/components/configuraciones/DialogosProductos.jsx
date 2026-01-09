@@ -35,7 +35,7 @@ export const DialogEliminarProducto = ({ open, onClose, onConfirm, eliminando, p
         <DialogContent>
             <DialogContentText sx={{ color: 'grey.300', fontSize: 15 }}>
                 Estás seguro de eliminar el producto
-                <strong> "{producto?.Nombre}"</strong>.
+                <strong> "{producto?.NombreProducto}"</strong>.
             </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'space-between', mt: 2 }}>

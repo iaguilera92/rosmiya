@@ -65,12 +65,26 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "rgba(23, 24, 25, 0.97)",
+        position: "relative",
         padding: "20px 0",
         color: "white",
         backgroundImage: "url(/footer-rosmiya.jpg)",
         backgroundSize: "cover",
-        backgroundPosition: "center 40%"
+        backgroundPosition: "center 40%",
+        overflow: "hidden",
+
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.25)", // ajusta opacidad aquí
+          zIndex: 0,
+        },
+
+        "& > *": {
+          position: "relative",
+          zIndex: 1,
+        },
       }}
     >
       <Container maxWidth="lg">
@@ -93,7 +107,7 @@ const Footer = () => {
 
               <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <img src="telefono-icon.png" alt="Teléfono" width={16} style={{ filter: 'brightness(0)' }} />
-                <Link href="tel:++584149793355" color="rgb(0 0 0)">+58 414 9790335</Link>
+                <Link href="tel:+584149793355" color="rgb(0 0 0)">+58 414 9790335</Link>
               </Typography>
 
               <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -117,7 +131,7 @@ const Footer = () => {
                 animation: logoInView ? `${growElement} 1s forwards` : "none",
               }}
             >
-              <img src="/logo-rosmiya.png" alt="Logo" style={{ height: "95px", marginBottom: "10px", filter: 'brightness(0)' }} />
+              <img src="/logo-rosmiya.png" alt="Logo" style={{ height: "95px", marginBottom: "10px" }} />
               <Box
                 ref={socialRef}
                 sx={{
@@ -170,7 +184,7 @@ const Footer = () => {
             {/* 🔹 Columna 3: Proveedores */}
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0.5 }}>
 
-              <img src="area-clientes.png" onClick={handleClick} width={120} alt="Área Clientes" style={{ filter: 'brightness(0)', marginTop: -35, marginBottom: "10px" }} />
+              <img src="area-clientes.png" onClick={handleClick} width={120} alt="Área Clientes" style={{ marginTop: -35, marginBottom: "10px" }} />
 
               <Typography sx={{ display: "flex", alignItems: "center", gap: 0.5 }} color="rgb(0 0 0)">
                 <AdminPanelSettingsIcon fontSize="small" />
@@ -187,7 +201,7 @@ const Footer = () => {
         {isMobile && (
           <Box display="flex" flexDirection="column" alignItems="center" mb={7}>
             <Box ref={logoRef} sx={{ animation: logoInView ? `${growElement} 1s forwards` : "none" }}>
-              <img src="/logo-rosmiya.png" alt="Logo" style={{ height: "85px", marginBottom: "0", filter: 'brightness(0)' }} />
+              <img src="/logo-rosmiya.png" alt="Logo" style={{ height: "85px", marginBottom: "0" }} />
             </Box>
 
             {/* Redes Sociales */}
@@ -212,7 +226,7 @@ const Footer = () => {
         )}
 
         <Typography variant="body2" align="center" mt={2} sx={{ marginTop: "5vh", color: "black" }}>
-          @rosmiya 2025 {version && `- v${version}`}
+          @rosmiyasc 2026 {version && `- v${version}`}
         </Typography>
         <Typography variant="body2" align="center" mt={2} sx={{ marginTop: "1vh", cursor: "pointer", color: "black" }} onClick={() => window.open("http://plataformas-web.cl", "_blank")}>
           Diseñado por www.plataformas-web.cl

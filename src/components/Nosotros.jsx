@@ -41,7 +41,7 @@ const Nosotros = () => {
         pb: 3.5,
         position: 'relative',
         overflow: 'hidden',
-        backgroundImage: isMobile ? 'url(fondo-blizz-rosmiya.webp)' : 'url(fondo-blizz-rosmiya.webp)',
+        background: "linear-gradient(180deg, #D9F3F4 0%, #BFE6EA 100%)",
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed',
@@ -52,8 +52,27 @@ const Nosotros = () => {
       <Box textAlign="center" mb={4}>
         <Typography
           variant={isMobile ? "h4" : "h2"}
-          fontWeight={700}
-          sx={{ color: "black", display: "inline-flex" }}
+          fontWeight={800}
+          sx={{
+            position: "relative",
+            display: "inline-flex",
+            letterSpacing: "0.04em",
+            background: "linear-gradient(90deg, #0F4C5C, #4DD0C8)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: "-5px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "60%",
+              height: "4px",
+              borderRadius: "4px",
+              background: "linear-gradient(90deg, #0F4C5C, #4DD0C8)",
+            },
+          }}
         >
           {"Nosotros".split("").map((char, index) => (
             <motion.span
@@ -68,6 +87,7 @@ const Nosotros = () => {
           ))}
         </Typography>
       </Box>
+
 
 
 

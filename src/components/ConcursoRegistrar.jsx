@@ -148,7 +148,7 @@ const ConcursoRegistrar = ({ open, onClose }) => {
         // ✅ Bloquea el botón y muestra loader
         setBotonBloqueado(true);
 
-        const url = `${window.location.hostname === "localhost" ? "http://localhost:9999" : ""}/.netlify/functions/actualizarConcurso`;
+        const url = `${window.location.hostname === "localhost" ? "http://localhost:8888" : ""}/.netlify/functions/actualizarConcurso`;
 
         try {
             const response = fetch(url, {

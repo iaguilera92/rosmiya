@@ -65,6 +65,14 @@ exports.handler = async (event) => {
         const workbook = XLSX.read(s3Data.Body, { type: "buffer" });
         const hoja = workbook.Sheets[workbook.SheetNames[0]];
         let datos = XLSX.utils.sheet_to_json(hoja);
+        const productoAnterior = datos.find(row => row.IdProducto === id);
+
+
+        const imageFinal =
+            producto.ImageUrl && producto.ImageUrl.trim() !== ""
+                ? producto.ImageUrl               // 🆕 nueva imagen
+                : productoAnterior?.ImageUrl || ""; // ♻️ mantener anterior
+
 
         // 🔁 Filtrar el producto anterior
         datos = datos.filter(row => row["IdProducto"] !== id);
@@ -76,9 +84,9 @@ exports.handler = async (event) => {
             Descripcion: producto.Descripcion,
             Valor: producto.Valor,
             Stock: producto.Stock,
-            ImageUrl: producto.ImageUrl,
+            ImageUrl: imageFinal, // 🔥 CLAVE
             ConDescuento: producto.ConDescuento ? true : false,
-            VideoUrl: producto.VideoUrl || ""
+            VideoUrl: producto.VideoUrl || "",
         };
 
         datos.push(nuevoProducto);

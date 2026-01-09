@@ -22,12 +22,13 @@ function RelojAnimado() {
         width: 28,
         height: 28,
         borderRadius: "50%",
-        border: "2px solid #ff5e9d", // 🌸 borde rosado fuerte
-        bgcolor: "#fff0f6", // 💗 fondo rosado pastel
+        border: "2px solid #4DD0E1", // 🟢 borde turquesa
+        bgcolor: "#E0F7FA",         // 💧 fondo pastel
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        boxShadow: "0 2px 6px rgba(0,0,0,.2) inset, 0 0 6px rgba(255,94,157,.4)", // glow rosado
+        boxShadow:
+          "0 2px 6px rgba(0,0,0,.18) inset, 0 0 6px rgba(77,208,225,.5)", // glow turquesa
       }}
     >
       {/* Aguja */}
@@ -36,12 +37,12 @@ function RelojAnimado() {
           position: "absolute",
           width: 2,
           height: "40%",
-          bgcolor: "#ff4081", // 🌸 aguja vibrante
+          bgcolor: "#26C6DA", // 🟢 aguja viva
           borderRadius: 1,
-          bottom: "50%",           // ⬅️ anclamos al centro exacto
-          left: "47%",
+          bottom: "50%",
+          left: "50%",
           transform: "translateX(-50%)",
-          transformOrigin: "bottom center", // pivote en el centro del reloj
+          transformOrigin: "bottom center",
           animation: "spin 5s linear infinite",
           "@keyframes spin": {
             "0%": { transform: "translateX(-50%) rotate(0deg)" },
@@ -59,12 +60,14 @@ function RelojAnimado() {
           width: 6,
           height: 6,
           borderRadius: "50%",
-          bgcolor: "#ff4081",
+          bgcolor: "#26C6DA",
           transform: "translate(-50%, -50%)",
           zIndex: 2,
+          boxShadow: "0 0 4px rgba(38,198,218,.8)",
         }}
       />
     </Box>
+
   );
 }
 
@@ -204,7 +207,7 @@ export default function DialogTrabajos({
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundImage: "url('/fondo-celeste.avif')",
+            backgroundImage: "url('/fondo-turquesa.webp')",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             zIndex: 0,
@@ -256,7 +259,7 @@ export default function DialogTrabajos({
             top: 8,
             right: 8,
             color: "#FFF",
-            zIndex: 4, // 👈 más arriba que ::before y ::after
+            zIndex: 3, // 👈 más arriba que ::before y ::after
             "&:hover": { backgroundColor: "rgba(255,255,255,.15)" },
 
             // animación al abrir
@@ -321,20 +324,20 @@ export default function DialogTrabajos({
             <Box
               sx={{
                 flex: 1,
-                minWidth: { xs: 120, sm: 160 }, // más pequeño en mobile
+                minWidth: { xs: 120, sm: 160 },
                 textAlign: "center",
                 px: { xs: 1, sm: 2 },
                 py: { xs: 1.2, sm: 2 },
                 borderRadius: 3,
-                background: "linear-gradient(135deg, rgba(100,181,246,0.9), rgba(3,169,244,0.7))",
-                // 💧 celeste claro → aqua
+                background: "linear-gradient(135deg, rgba(64,224,208,0.95), rgba(0,150,136,0.85))",
                 boxShadow: {
-                  xs: "0 4px 14px rgba(0,0,0,.25), 0 0 12px rgba(100,181,246,.45)",
-                  sm: "0 6px 20px rgba(0,0,0,.35), 0 0 16px rgba(3,169,244,.5)",
+                  xs: "0 4px 14px rgba(0,0,0,.25), 0 0 14px rgba(64,224,208,.5)",
+                  sm: "0 6px 22px rgba(0,0,0,.35), 0 0 18px rgba(0,150,136,.55)",
                 },
                 color: "#fff",
               }}
             >
+
               <Box
                 sx={{
                   display: "inline-flex",
@@ -375,19 +378,20 @@ export default function DialogTrabajos({
             <Box
               sx={{
                 flex: 1,
-                minWidth: { xs: 120, sm: 160 }, // más pequeño en mobile
+                minWidth: { xs: 120, sm: 160 },
                 textAlign: "center",
                 px: { xs: 1, sm: 2 },
                 py: { xs: 1.2, sm: 2 },
                 borderRadius: 3,
-                background: "linear-gradient(135deg, rgba(100,181,246,0.9), rgba(3,169,244,0.7))",
+                background: "linear-gradient(135deg, rgba(64,224,208,0.95), rgba(0,150,136,0.85))",
                 boxShadow: {
-                  xs: "0 4px 14px rgba(0,0,0,.25), 0 0 12px rgba(100,181,246,.45)",
-                  sm: "0 6px 20px rgba(0,0,0,.35), 0 0 16px rgba(3,169,244,.5)",
+                  xs: "0 4px 14px rgba(0,0,0,.25), 0 0 14px rgba(64,224,208,.5)",
+                  sm: "0 6px 22px rgba(0,0,0,.35), 0 0 18px rgba(0,150,136,.55)",
                 },
                 color: "#fff",
               }}
             >
+
               <Box
                 sx={{
                   display: "inline-flex",
@@ -420,7 +424,7 @@ export default function DialogTrabajos({
                   fontSize: { xs: "0.59rem", sm: "0.875rem" },
                 }}
               >
-                Confecciones rosmiya
+                Confecciones Rosmiya
               </Typography>
             </Box>
 
@@ -456,12 +460,13 @@ export default function DialogTrabajos({
           >
             <DialogContent
               sx={{
-                background: "linear-gradient(180deg, #E3F2FD 0%, #E1F5FE 100%)",
+                background: "linear-gradient(180deg, #E0F7FA 0%, #F1FCFD 100%)",
                 py: 0.5,
                 px: 1.2,
                 mb: 0,
               }}
             >
+
               <Box sx={{ mt: { xs: 0.5, sm: 0.5 } }}>
                 {localTrabajos
                   .slice()
@@ -510,10 +515,16 @@ export default function DialogTrabajos({
                 >
                   <Typography
                     variant="caption"
-                    sx={{ fontSize: "0.65rem", fontWeight: 500, color: "#1976d2", lineHeight: 1.1 }}
+                    sx={{
+                      fontSize: "0.65rem",
+                      fontWeight: 500,
+                      color: "#4DB6AC", // turquesa gris suave
+                      lineHeight: 1.1,
+                    }}
                   >
                     📅 Última actualización: {ultimaFecha}
                   </Typography>
+
                 </Box>
               )}
 
@@ -531,14 +542,26 @@ export default function DialogTrabajos({
         sx={{
           px: 2,
           py: 0.6,
-          background: "linear-gradient(90deg,#BBDEFB,#90CAF9)", // 💧 celeste más fuerte
-          borderTop: "1px solid rgba(33,150,243,.35)", // azul un poco más marcado
+          background: "linear-gradient(90deg, rgba(64,224,208,0.9), rgba(0,150,136,0.85))",
+          borderTop: "1px solid rgba(0,150,136,.45)",
         }}
       >
-
-        <Button onClick={onClose} sx={{ color: "#0277BD", fontWeight: 700 }}>
+        <Button
+          onClick={onClose}
+          sx={{
+            color: "#ffffff",
+            fontWeight: 700,
+            textTransform: "none",
+            opacity: 0.9,
+            "&:hover": {
+              opacity: 1,
+              backgroundColor: "rgba(255,255,255,.15)",
+            },
+          }}
+        >
           Cerrar
         </Button>
+
 
         {onPrimaryClick && (
           <Button
@@ -552,9 +575,11 @@ export default function DialogTrabajos({
               textTransform: "none",
               fontWeight: 700,
               color: "#fff",
-              border: armed ? "none" : "2px solid #fff",
-              background: "transparent", // siempre transparente
-              boxShadow: armed ? "0 6px 18px rgba(33,150,243,.35)" : "none", // glow celeste
+              border: armed ? "none" : "2px solid rgba(255,255,255,.85)",
+              background: "transparent",
+              boxShadow: armed
+                ? "0 6px 18px rgba(38,198,218,.45)" // glow turquesa
+                : "none",
               transition: "all 0.3s ease",
 
               "&::before": {
@@ -562,19 +587,21 @@ export default function DialogTrabajos({
                 position: "absolute",
                 inset: 0,
                 borderRadius: "inherit",
-                background: "linear-gradient(90deg,#4FC3F7,#0288D1)", // celeste → azul
+                background: "linear-gradient(90deg,#4DD0E1,#26C6DA)",
                 transform: armed ? "scale(1)" : "scale(0)",
                 transformOrigin: "center center",
-                transition: "transform 0.6s ease",
+                transition: "transform 0.5s ease",
                 zIndex: 0,
               },
+
               "& span": {
                 position: "relative",
                 zIndex: 1,
               },
+
               "&:hover::before": {
                 background: expanded
-                  ? "linear-gradient(90deg,#81D4FA,#039BE5)" // hover más vibrante
+                  ? "linear-gradient(90deg,#80DEEA,#26C6DA)"
                   : "rgba(255,255,255,0.15)",
               },
             }}
