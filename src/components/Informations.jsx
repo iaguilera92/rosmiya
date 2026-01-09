@@ -30,7 +30,7 @@ const promotions = [
   },
   {
     id: 2,
-    title: "🧷Arreglos y composturas de ropa",
+    title: "🧷Arreglos y composturas",
     description:
       "Realizamos arreglos de ropa con terminaciones profesionales: ajustes de talla, bastas, cierres, reparaciones y más.",
     image: "/Informations-3.webp",
