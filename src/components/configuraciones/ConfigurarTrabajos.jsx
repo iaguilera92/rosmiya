@@ -150,7 +150,7 @@ const ConfigurarTrabajos = () => {
     try {
       // 👇 siempre un timestamp nuevo para evitar caché
       const resp = await fetch(
-        `https://rosmiya.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${Date.now()}`
+        `https://rosmiyasc.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${Date.now()}`
       );
       const buffer = await resp.arrayBuffer();
       const XLSX = await import("xlsx");
@@ -298,7 +298,7 @@ const ConfigurarTrabajos = () => {
         width: "100vw",
         overflowX: "hidden",
         py: 1,
-        backgroundImage: "url(fondo-blizz-rosmiya.webp)",
+        backgroundImage: "url(fondo-blizz-ivelpink.webp)",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",

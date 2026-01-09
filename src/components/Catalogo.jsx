@@ -42,7 +42,7 @@ const Catalogo = () => {
     const cargarDatos = async () => {
       if (cancelado) return;
       const timestamp = new Date().getTime();
-      const urlConCacheBust = `https://rosmiya.s3.us-east-2.amazonaws.com/Productos.xlsx?t=${timestamp}`;
+      const urlConCacheBust = `https://rosmiyasc.s3.us-east-2.amazonaws.com/Productos.xlsx?t=${timestamp}`;
 
       let datos = await cargarProductos(urlConCacheBust);
 
@@ -585,7 +585,7 @@ const Catalogo = () => {
                   }}
                   onClick={() => {
                     const mensaje = `Me interesó el ${videoFullScreenProducto.NombreProducto}, ¿sigue disponible?`;
-                    const telefono = '584149790335';
+                    const telefono = '584149793355';
                     const urlWhatsapp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
                     window.open(urlWhatsapp, '_blank');
                   }}

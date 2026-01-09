@@ -357,7 +357,7 @@ const Productos = ({ producto, girado, onGirar, FormatearPesos, onVisualizarMobi
                       e.stopPropagation();
                       if (producto.Stock === 0) return;
                       const mensaje = `Me interesó el ${producto.NombreProducto}, ¿sigue disponible?`;
-                      const telefono = '584149790335';
+                      const telefono = '584149793355';
                       const urlWhatsapp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
                       window.open(urlWhatsapp, '_blank');
                     }}
@@ -446,7 +446,7 @@ const Productos = ({ producto, girado, onGirar, FormatearPesos, onVisualizarMobi
                 onClick={(e) => {
                   e.stopPropagation();
                   const mensaje = `Me interesó el ${producto.NombreProducto}, ¿sigue disponible?`;
-                  const telefono = '584149790335';
+                  const telefono = '584149793355';
                   const urlWhatsapp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
                   window.open(urlWhatsapp, '_blank');
                 }}

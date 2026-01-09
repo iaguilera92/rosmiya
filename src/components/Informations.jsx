@@ -124,7 +124,7 @@ function Informations({ informationsRef, triggerInformations }) {
 
   const handleContactClick = (title) => {
     const mensaje = `¡Hola! Me interesó la promoción de ${encodeURIComponent(title)} ¿Me comentas?`;
-    window.open(`https://api.whatsapp.com/send?phone=584149790335&text=${mensaje}`, "_blank");
+    window.open(`https://api.whatsapp.com/send?phone=584149793355&text=${mensaje}`, "_blank");
   };
   return (
     <Box

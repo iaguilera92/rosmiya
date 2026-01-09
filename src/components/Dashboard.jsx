@@ -161,7 +161,7 @@ const Dashboard = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                backgroundImage: 'url(fondo-blizz-rosmiya.webp)',
+                backgroundImage: 'url(fondo-blizz-ivelpink.webp)',
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
@@ -603,11 +603,6 @@ const Dashboard = () => {
                     🚧 En Construcción...
                 </Alert>
             </Snackbar>
-            <DialogPaseMensual
-                open={openPase}
-                onClose={() => setOpenPase(false)}
-                analyticsDisponible={analyticsDisponible}
-            />
 
         </Box >
 

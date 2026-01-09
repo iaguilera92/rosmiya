@@ -124,7 +124,7 @@ function Informations({ informationsRef, triggerInformations }) {
 
   const handleContactClick = (title) => {
     const mensaje = `¡Hola! Me interesó la promoción de ${encodeURIComponent(title)} ¿Me comentas?`;
-    window.open(`https://api.whatsapp.com/send?phone=584149790335&text=${mensaje}`, "_blank");
+    window.open(`https://api.whatsapp.com/send?phone=584149793355&text=${mensaje}`, "_blank");
   };
   return (
     <Box
@@ -490,26 +490,6 @@ function Informations({ informationsRef, triggerInformations }) {
               La elegancia está
               en los detalles
             </Typography>
-
-
-
-
-            {/* Línea debajo del título con animación (con retraso de 2 segundos) */}
-            <motion.hr
-              initial={{ opacity: 0 }} // Comienza invisible
-              animate={inView || hasAnimated2 ? { opacity: 1 } : {}} // Aparece completamente
-              transition={{ duration: 0.8, delay: 1 }} // Aparece después de 1s y dura 1s
-              style={{
-                position: "absolute",
-                top: isMobile ? "calc(80% - 30px)" : "calc(100% - 30px)", // Ajusta la posición
-                left: "5%",
-                width: "90%", // Mantiene su tamaño desde el inicio
-                border: "1px solid #355f5b",
-                zIndex: 0,
-                background: "white",
-                clipPath: "polygon(0% 0%, 0% 0%, 9% 100%, 0% 100%, 0% 0%, 100% 0%, 90% 100%, 100% 100%, 100% 0%)",
-              }}
-            />
 
           </Box>
           {/* Columna de los íconos */}
