@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Container, Typography, Button, Card, CardContent, Snackbar, Alert,
+  Container, Typography, Button, Card, CardContent, Snackbar, Alert, Dialog, AppBar, Toolbar, Paper,
   Box, Grid, TextField, IconButton, Collapse, FormControlLabel, Checkbox, useMediaQuery, useTheme
 } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,6 +25,10 @@ const ConfigurarProductos = () => {
   const [restaurando, setRestaurando] = useState(false);
   const [actualizando, setActualizando] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
+  const [dialogEditarOpen, setDialogEditarOpen] = useState(false);
+  const [dialogVideoOpen, setDialogVideoOpen] = useState(false);
+  const [previewImagen, setPreviewImagen] = useState(null);
+
   const [nuevoProducto, setNuevoProducto] = useState({
     IdProducto: '',
     NombreProducto: '',
@@ -57,13 +61,22 @@ const ConfigurarProductos = () => {
   const handleEditar = (index) => {
     setSelected(index);
     setNuevoProducto({ ...productos[index] });
-    setMostrarFormulario(index);
+
+    if (isMobile) {
+      setDialogEditarOpen(true);
+    } else {
+      setMostrarFormulario(index);
+    }
   };
 
+
   const handleCancelar = () => {
+    setPreviewImagen(null);
     setSelected(null);
     setMostrarFormulario(null);
+    setDialogEditarOpen(false);
   };
+
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -161,134 +174,558 @@ const ConfigurarProductos = () => {
           <Button variant="outlined" color="inherit" onClick={() => setRestaurarOpen(true)} startIcon={<UpdateIcon />} sx={{ fontSize: { xs: '0.5rem', sm: '1.25rem' }, color: 'white', borderColor: 'white', '&:hover': { backgroundColor: '#ffffff22', borderColor: '#ffffffcc' } }}>Restaurar productos</Button>
         </Box>
 
-        <AnimatePresence>
-          {productos.map((producto, idx) => (
-            <motion.div
-              key={producto.IdProducto || idx}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -60 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
-            >
-              <Card sx={{ mb: 1.5, overflow: 'hidden', background: 'rgb(60, 35, 50)', color: 'white', transition: 'all 0.4s ease' }}>
-                <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Box>
-                    <Typography variant="subtitle1" fontWeight={600}>{producto.NombreProducto}</Typography>
-                    <Typography variant="body2">Precio: ${producto.Valor}</Typography>
-                    <Typography variant="body2">Stock: {producto.Stock}</Typography>
-                  </Box>
-                  <Box>
-                    <IconButton onClick={() => mostrarFormulario === idx ? handleCancelar() : handleEditar(idx)} sx={{ transition: 'transform 0.3s ease', transform: mostrarFormulario === idx ? 'rotate(180deg)' : 'none', color: mostrarFormulario === idx ? '#dc3545' : 'inherit' }}>
-                      {mostrarFormulario === idx ? <CloseIcon /> : <EditIcon />}
-                    </IconButton>
-                    <IconButton onClick={() => handleEliminar(idx)} sx={{ color: 'white' }}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </Box>
-                </CardContent>
+        <Grid container spacing={2}>
+          <AnimatePresence>
+            {productos.map((producto, idx) => (
+              <Grid
+                item
+                xs={6}
+                sm={6}
+                md={4}
+                lg={3}
+                key={producto.IdProducto || idx}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -60 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  style={{ height: '100%' }}
+                >
+                  <Card
+                    sx={{
+                      height: '100%',
+                      borderRadius: 2,
+                      overflow: 'hidden',
+                      position: 'relative',
+                      color: 'white',
+                    }}
+                  >
+                    {/* IMAGEN DE FONDO */}
+                    <Box
+                      sx={{
+                        height: 160,
+                        backgroundImage: `url(${producto.ImageUrl || '/placeholder.webp'})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        position: 'relative',
+                      }}
+                    >
+                      {/* OVERLAY */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          inset: 0,
+                          background:
+                            'linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.2))',
+                        }}
+                      />
 
-                <Collapse in={mostrarFormulario === idx} timeout={500} unmountOnExit>
-                  <Box sx={{ p: 3, background: '#fff', borderTop: '1px solid rgba(0,0,0,0.1)', width: '100%' }}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          fullWidth
-                          label="Nombre"
-                          name="NombreProducto"
-                          value={nuevoProducto.NombreProducto}
-                          onChange={handleInputChange}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          fullWidth
-                          label="Precio"
-                          name="Valor"
-                          type="number"
-                          value={nuevoProducto.Valor}
-                          onChange={handleInputChange}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          fullWidth
-                          label="Stock"
-                          name="Stock"
-                          type="number"
-                          value={nuevoProducto.Stock}
-                          onChange={handleInputChange}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6} display="flex" alignItems="center">
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={nuevoProducto.ConDescuento}
+                      {/* INFO */}
+                      <Box sx={{ position: 'relative', p: 1.5 }}>
+                        <Typography
+                          fontWeight={700}
+                          fontSize="0.9rem"
+                          noWrap
+                        >
+                          {producto.NombreProducto}
+                        </Typography>
+
+                        <Typography fontSize="0.75rem">
+                          ${producto.Valor}
+                        </Typography>
+
+                        <Typography fontSize="0.7rem" opacity={0.85}>
+                          Stock: {producto.Stock}
+                        </Typography>
+                      </Box>
+
+                      {/* BOTONES */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 8,
+                          right: 8,
+                          display: 'flex',
+                          gap: 0.5,
+                        }}
+                      >
+                        <IconButton
+                          size="small"
+                          onClick={() => {
+                            if (isMobile) {
+                              handleEditar(idx);
+                            } else {
+                              mostrarFormulario === idx
+                                ? handleCancelar()
+                                : handleEditar(idx);
+                            }
+                          }}
+
+                          sx={{
+                            backgroundColor: '#00000088',
+                            color: 'white',
+                            '&:hover': { backgroundColor: '#000000cc' },
+                          }}
+                        >
+                          {mostrarFormulario === idx ? <CloseIcon /> : <EditIcon />}
+                        </IconButton>
+
+                        <IconButton
+                          size="small"
+                          onClick={() => handleEliminar(idx)}
+                          sx={{
+                            backgroundColor: '#00000088',
+                            color: 'white',
+                            '&:hover': { backgroundColor: '#000000cc' },
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
+                    </Box>
+
+                    {/* FORMULARIO */}
+                    <Collapse
+                      in={mostrarFormulario === idx}
+                      timeout={400}
+                      unmountOnExit
+                    >
+                      <Box
+                        sx={{
+                          p: 2,
+                          backgroundColor: '#fff',
+                          color: '#000',
+                        }}
+                      >
+                        <Grid container spacing={2}>
+                          <Grid item xs={12}>
+                            <TextField
+                              fullWidth
+                              label="Nombre"
+                              name="NombreProducto"
+                              value={nuevoProducto.NombreProducto}
                               onChange={handleInputChange}
-                              name="ConDescuento"
-                              sx={{ color: 'black' }}
                             />
-                          }
-                          label={<Typography sx={{ color: 'black' }}>¿Producto con descuento?</Typography>}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          label="Descripción"
-                          name="Descripcion"
-                          value={nuevoProducto.Descripcion}
-                          onChange={handleInputChange}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          label="Imagen URL"
-                          name="ImageUrl"
-                          value={nuevoProducto.ImageUrl}
-                          onChange={handleInputChange}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          label="Video URL"
-                          name="VideoUrl"
-                          value={nuevoProducto.VideoUrl}
-                          onChange={handleInputChange}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Box display="flex" justifyContent="center" mt={2}>
-                          <Box width="80%" display="flex" gap={2}>
-                            <Button
-                              variant="contained"
-                              onClick={handleGuardar}
-                              disabled={actualizando}
-                              startIcon={<UpdateIcon />}
-                              fullWidth
-                            >
-                              Guardar
-                            </Button>
-                            <Button
-                              variant="outlined"
-                              onClick={handleCancelar}
-                              fullWidth
-                            >
-                              Cancelar
-                            </Button>
-                          </Box>
-                        </Box>
-                      </Grid>
-                    </Grid>
+                          </Grid>
 
+                          <Grid item xs={6}>
+                            <TextField
+                              fullWidth
+                              label="Precio"
+                              name="Valor"
+                              type="number"
+                              value={nuevoProducto.Valor}
+                              onChange={handleInputChange}
+                            />
+                          </Grid>
+
+                          <Grid item xs={6}>
+                            <TextField
+                              fullWidth
+                              label="Stock"
+                              name="Stock"
+                              type="number"
+                              value={nuevoProducto.Stock}
+                              onChange={handleInputChange}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12}>
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  checked={nuevoProducto.ConDescuento}
+                                  onChange={handleInputChange}
+                                  name="ConDescuento"
+                                />
+                              }
+                              label="¿Producto con descuento?"
+                            />
+                          </Grid>
+
+                          <Grid item xs={12}>
+                            <TextField
+                              fullWidth
+                              label="Descripción"
+                              name="Descripcion"
+                              value={nuevoProducto.Descripcion}
+                              onChange={handleInputChange}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12}>
+                            <TextField
+                              fullWidth
+                              label="Imagen URL"
+                              name="ImageUrl"
+                              value={nuevoProducto.ImageUrl}
+                              onChange={handleInputChange}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12}>
+                            <TextField
+                              fullWidth
+                              label="Video URL"
+                              name="VideoUrl"
+                              value={nuevoProducto.VideoUrl}
+                              onChange={handleInputChange}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12}>
+                            <Box display="flex" gap={1}>
+                              <Button
+                                variant="contained"
+                                onClick={handleGuardar}
+                                disabled={actualizando}
+                                fullWidth
+                                startIcon={<UpdateIcon />}
+                              >
+                                Guardar
+                              </Button>
+
+                              <Button
+                                variant="outlined"
+                                onClick={handleCancelar}
+                                fullWidth
+                              >
+                                Cancelar
+                              </Button>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Collapse>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
+          </AnimatePresence>
+        </Grid>
+
+        {/* EDITAR PRODUCTO */}
+        <Dialog
+          fullScreen
+          open={dialogEditarOpen}
+          onClose={handleCancelar}
+        >
+          {/* HEADER */}
+          <AppBar
+            sx={{
+              position: 'relative',
+              background: 'linear-gradient(135deg, #5a2e3b, #7b4b5a)',
+            }}
+          >
+            <Toolbar>
+              <IconButton edge="start" color="inherit" onClick={handleCancelar}>
+                <CloseIcon />
+              </IconButton>
+              <Typography
+                sx={{ ml: 2, fontWeight: 600, letterSpacing: 0.5 }}
+                variant="h6"
+              >
+                ✂️ Editar Producto
+              </Typography>
+            </Toolbar>
+          </AppBar>
+
+          {/* CONTENIDO */}
+          <Box sx={{ p: 1, backgroundColor: '#f5f2f3', minHeight: '100%' }}>
+            <Paper
+              elevation={4}
+              sx={{
+                p: 2,
+                borderRadius: 3,
+                backgroundColor: '#faf7f8',
+              }}
+            >
+              <Grid container spacing={2}>
+                {/* NOMBRE */}
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="👗 Nombre de la prenda"
+                    name="NombreProducto"
+                    value={nuevoProducto.NombreProducto}
+                    onChange={handleInputChange}
+                    InputProps={{
+                      sx: { backgroundColor: '#fff', borderRadius: 2 },
+                    }}
+                  />
+                </Grid>
+
+                {/* PRECIO / STOCK */}
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="💰 Precio"
+                    name="Valor"
+                    type="number"
+                    value={nuevoProducto.Valor}
+                    onChange={handleInputChange}
+                    InputProps={{
+                      sx: { backgroundColor: '#fff', borderRadius: 2 },
+                    }}
+                  />
+                </Grid>
+
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="📦 Unidades disponibles"
+                    name="Stock"
+                    type="number"
+                    value={nuevoProducto.Stock}
+                    onChange={handleInputChange}
+                    InputProps={{
+                      sx: { backgroundColor: '#fff', borderRadius: 2 },
+                    }}
+                  />
+                </Grid>
+
+                {/* DESCUENTO */}
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={nuevoProducto.ConDescuento}
+                        onChange={handleInputChange}
+                        name="ConDescuento"
+                        sx={{ color: '#5a2e3b' }}
+                      />
+                    }
+                    label="🏷️ Prenda con descuento"
+                  />
+                </Grid>
+
+                {/* DESCRIPCIÓN */}
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    multiline
+                    minRows={2}
+                    label="🧵 Detalles de la prenda"
+                    name="Descripcion"
+                    value={nuevoProducto.Descripcion}
+                    onChange={handleInputChange}
+                    InputProps={{
+                      sx: { backgroundColor: '#fff', borderRadius: 2 },
+                    }}
+                  />
+                </Grid>
+
+                {/* IMAGEN */}
+                <Grid item xs={12}>
+
+                  <Grid item xs={12}>
+                    <Button
+                      component="label"
+                      fullWidth
+                      variant="outlined"
+                      sx={{ borderRadius: 2, textTransform: 'none' }}
+                    >
+                      📤 Subir foto de la prenda
+                      <input
+                        type="file"
+                        hidden
+                        accept="image/*"
+                        onChange={async (e) => {
+                          const file = e.target.files[0];
+                          if (!file) return;
+
+                          // 👉 1. Preview inmediato (local)
+                          const previewUrl = URL.createObjectURL(file);
+                          setPreviewImagen(previewUrl);
+
+                          // 👉 2. Subida real a S3
+                          const reader = new FileReader();
+                          reader.onloadend = async () => {
+                            const base64 = reader.result.split(',')[1];
+
+                            const res = await fetch(
+                              '/.netlify/functions/subirImagenProducto',
+                              {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                  fileBase64: base64,
+                                  contentType: file.type,
+                                }),
+                              }
+                            );
+
+                            const { url } = await res.json();
+
+                            // 👉 3. Reemplaza preview por URL final
+                            setNuevoProducto((prev) => ({
+                              ...prev,
+                              ImageUrl: url,
+                            }));
+
+                            // 👉 Limpia preview temporal
+                            URL.revokeObjectURL(previewUrl);
+                            setPreviewImagen(null);
+                          };
+
+                          reader.readAsDataURL(file);
+                        }}
+                      />
+
+                    </Button>
+
+                    {(previewImagen || nuevoProducto.ImageUrl) && (
+                      <Box
+                        mt={2}
+                        sx={{
+                          height: 220,
+                          borderRadius: 3,
+                          backgroundImage: `url(${previewImagen || nuevoProducto.ImageUrl})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
+                        }}
+                      />
+                    )}
+
+                  </Grid>
+
+                </Grid>
+
+                {/* VIDEO */}
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label="🎥 Video del proceso (URL)"
+                    name="VideoUrl"
+                    value={nuevoProducto.VideoUrl}
+                    onChange={handleInputChange}
+                    InputProps={{
+                      sx: { backgroundColor: '#fff', borderRadius: 2 },
+                    }}
+                  />
+
+                  {nuevoProducto.VideoUrl && (
+                    <Box
+                      mt={1.5}
+                      display="flex"
+                      alignItems="center"
+                      gap={1}
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => setDialogVideoOpen(true)}
+                    >
+                      <Box
+                        sx={{
+                          width: 44,
+                          height: 30,
+                          borderRadius: 2,
+                          backgroundColor: '#FF0000', // 🔴 YouTube red
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 10px rgba(255,0,0,0.35)',
+                        }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </Box>
+
+                      <Typography variant="caption" color="text.secondary">
+                        👀 Ver detalle de confección
+                      </Typography>
+                    </Box>
+                  )}
+                </Grid>
+
+                {/* BOTONES */}
+                <Grid item xs={12}>
+                  <Box display="flex" gap={1} mt={1}>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      startIcon={<UpdateIcon />}
+                      onClick={handleGuardar}
+                      disabled={actualizando}
+                      sx={{
+                        backgroundColor: '#5a2e3b',
+                        borderRadius: 3,
+                        textTransform: 'none',
+                        fontWeight: 600,
+                        '&:hover': {
+                          backgroundColor: '#7b4b5a',
+                        },
+                      }}
+                    >
+                      Guardar
+                    </Button>
+
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      onClick={handleCancelar}
+                      sx={{
+                        borderRadius: 3,
+                        textTransform: 'none',
+                      }}
+                    >
+                      ❌ Cancelar
+                    </Button>
                   </Box>
-                </Collapse>
-              </Card>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Box>
+        </Dialog>
+
+
+        {/*VIDEO*/}
+        <Dialog
+          fullScreen
+          open={dialogVideoOpen}
+          onClose={() => setDialogVideoOpen(false)}
+        >
+          <AppBar sx={{ position: 'relative', background: '#000' }}>
+            <Toolbar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={() => setDialogVideoOpen(false)}
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography sx={{ ml: 2 }} variant="h6">
+                Detalle de confección
+              </Typography>
+            </Toolbar>
+          </AppBar>
+
+          <Box
+            sx={{
+              flex: 1,
+              backgroundColor: 'black',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <video
+              src={nuevoProducto.VideoUrl}
+              controls
+              autoPlay
+              style={{
+                width: '100%',
+                maxHeight: '100%',
+              }}
+            />
+          </Box>
+        </Dialog>
 
         <DialogEliminarProducto open={productoAEliminar !== null} producto={productos[productoAEliminar]} eliminando={eliminando} onClose={() => !eliminando && setProductoAEliminar(null)} onConfirm={confirmarEliminar} />
         <DialogRestaurarProductos open={restaurarOpen} restaurando={restaurando} onClose={() => !restaurando && setRestaurarOpen(false)} onConfirm={confirmarRestaurar} />
