@@ -156,7 +156,7 @@ export default function DialogTrabajos({
     if (open) {
       const timestamp = Date.now();
       cargarTrabajos(
-        `https://rosmiya.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${timestamp}`
+        `https://rosmiyasc.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${timestamp}`
       ).then((data) => {
         // 🔹 Filtrar solo los trabajos activos (Estado = 1)
         const activos = data.filter(t => Number(t.Estado) === 1);

@@ -66,7 +66,7 @@ function Features({ videoReady, informationsRef }) {
 
   //TRABAJOS S3
   useEffect(() => {
-    cargarTrabajos(`https://rosmiya.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${timestamp}`)
+    cargarTrabajos(`https://rosmiyasc.s3.us-east-2.amazonaws.com/Trabajos.xlsx?t=${timestamp}`)
       .then(setTrabajos);
   }, []);
 

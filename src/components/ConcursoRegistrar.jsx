@@ -221,7 +221,7 @@ const ConcursoRegistrar = ({ open, onClose }) => {
         const validar = async () => {
             if (codigo.length >= 8) {
                 const match = await ValidarCodigoConcurso(
-                    "https://rosmiya.s3.us-east-2.amazonaws.com/Concurso.xlsx",
+                    "https://rosmiyasc.s3.us-east-2.amazonaws.com/Concurso.xlsx",
                     codigo
                 );
 

@@ -46,7 +46,7 @@ const ConfigurarProductos = () => {
 
   const recargarProductos = async () => {
     const timestamp = Date.now();
-    const data = await cargarProductos(`https://rosmiya.s3.us-east-2.amazonaws.com/Productos.xlsx?t=${timestamp}`);
+    const data = await cargarProductos(`https://rosmiyasc.s3.us-east-2.amazonaws.com/Productos.xlsx?t=${timestamp}`);
 
     const ordenados = [...data].sort((a, b) => String(a.IdProducto).localeCompare(String(b.IdProducto)));
 
