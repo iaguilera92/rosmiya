@@ -360,7 +360,7 @@ const Evidencias = () => {
                                 }}
                             >
                                 <motion.video
-                                    src="/Evidencias.mp4"
+                                    src="/trabajos.mp4"
                                     autoPlay
                                     loop
                                     muted

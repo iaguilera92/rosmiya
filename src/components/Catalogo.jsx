@@ -166,8 +166,8 @@ const Catalogo = () => {
               px: 1.2,
               position: "relative",
               backgroundImage: isMobile
-                ? "url(fondo-blizz-rosmiya.webp)"
-                : "url(fondo-blizz-rosmiya.webp)",
+                ? "url(fondo-mobile.webp)"
+                : "url(fondo-escritorio.webp)",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
