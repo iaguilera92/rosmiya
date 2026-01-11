@@ -56,7 +56,7 @@ const ContactoForm = ({ setSnackbar }) => {
             nombre: name,
             telefono: phone,
             mensaje: message,
-            email: "rosmiya.cl@gmail.com",
+            email: "ysanchezg@hotmail.com",
         };
 
         if (enviarCopia && emailCopia.trim()) {

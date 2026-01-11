@@ -319,7 +319,11 @@ const Productos = ({ producto, girado, onGirar, FormatearPesos, onVisualizarMobi
                         textAlign: 'center',
                       }}
                     >
-                      {producto.Stock === 0 ? 'Agotado' : FormatearPesos(producto.Valor)}
+                      {producto.Stock === 0
+                        ? 'Agotado'
+                        : `${FormatearPesos(producto.Valor)} USD`
+                      }
+
                     </Typography>
                     {producto.ConDescuento && (
                       <Typography
@@ -329,7 +333,7 @@ const Productos = ({ producto, girado, onGirar, FormatearPesos, onVisualizarMobi
                           textDecoration: 'line-through',
                         }}
                       >
-                        {FormatearPesos(producto.Valor + 3000)}
+                        {FormatearPesos(producto.Valor + 5)} USD
                       </Typography>
                     )}
                   </Box>

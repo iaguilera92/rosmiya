@@ -1,10 +1,10 @@
 const AWS = require("aws-sdk");
 const XLSX = require("xlsx");
-require("dotenv").config(); // para local
+require("dotenv").config();
 
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const REGION = process.env.MY_AWS_REGION || "us-east-1";
-const FILE_KEY = "Productos.xlsx"; // <-- adaptado al nuevo archivo
+const FILE_KEY = "Productos.xlsx";
 
 if (process.env.MY_AWS_ACCESS_KEY_ID && process.env.MY_AWS_SECRET_ACCESS_KEY) {
     AWS.config.update({
@@ -49,73 +49,117 @@ exports.handler = async (event) => {
 
     try {
         const { producto } = JSON.parse(event.body);
-        const id = producto.IdProducto;
 
-        if (!id || !producto.NombreProducto) {
+        if (!producto || !producto.NombreProducto) {
             return {
                 statusCode: 400,
                 headers: corsHeaders,
-                body: JSON.stringify({ message: "Falta el IdProducto o NombreProducto" }),
+                body: JSON.stringify({ message: "Falta el NombreProducto" }),
             };
         }
 
-        console.log("✅ Producto recibido:", producto.NombreProducto, "-", id);
+        // 🔹 Obtener Excel desde S3
+        const s3Data = await s3
+            .getObject({ Bucket: BUCKET_NAME, Key: FILE_KEY })
+            .promise();
 
-        const s3Data = await s3.getObject({ Bucket: BUCKET_NAME, Key: FILE_KEY }).promise();
         const workbook = XLSX.read(s3Data.Body, { type: "buffer" });
-        const hoja = workbook.Sheets[workbook.SheetNames[0]];
+        const sheetName = workbook.SheetNames[0];
+        const hoja = workbook.Sheets[sheetName];
         let datos = XLSX.utils.sheet_to_json(hoja);
-        const productoAnterior = datos.find(row => row.IdProducto === id);
+
+        // 🔹 Determinar si es nuevo o edición
+        const esNuevo =
+            producto.IdProducto === null ||
+            producto.IdProducto === undefined ||
+            producto.IdProducto === "" ||
+            Number.isNaN(Number(producto.IdProducto));
+
+        // 🔹 Calcular IdProducto AUTOINCREMENT si es nuevo
+        let idFinal;
+
+        if (esNuevo) {
+            const maxId = Math.max(
+                0,
+                ...datos.map(row => Number(row.IdProducto) || 0)
+            );
+            idFinal = maxId + 1;
+        } else {
+            idFinal = Number(producto.IdProducto);
+        }
 
 
+        // 🔹 Buscar producto anterior (solo si existe)
+        const productoAnterior = datos.find(
+            (row) => Number(row.IdProducto) === idFinal
+        );
+
+        // 🔹 Resolver imagen final
         const imageFinal =
             producto.ImageUrl && producto.ImageUrl.trim() !== ""
-                ? producto.ImageUrl               // 🆕 nueva imagen
-                : productoAnterior?.ImageUrl || ""; // ♻️ mantener anterior
+                ? producto.ImageUrl
+                : productoAnterior?.ImageUrl || "";
 
+        // 🔹 Si es edición, eliminar registro anterior
+        if (!esNuevo) {
+            datos = datos.filter(
+                (row) => Number(row.IdProducto) !== idFinal
+            );
+        }
 
-        // 🔁 Filtrar el producto anterior
-        datos = datos.filter(row => row["IdProducto"] !== id);
-
-        // ✅ Insertar el nuevo producto
+        // 🔹 Construir producto final
         const nuevoProducto = {
-            IdProducto: id,
+            IdProducto: idFinal,
             NombreProducto: producto.NombreProducto,
-            Descripcion: producto.Descripcion,
+            Descripcion: producto.Descripcion || "",
             Valor: producto.Valor,
             Stock: producto.Stock,
-            ImageUrl: imageFinal, // 🔥 CLAVE
+            ImageUrl: imageFinal,
             ConDescuento: producto.ConDescuento ? true : false,
             VideoUrl: producto.VideoUrl || "",
         };
 
         datos.push(nuevoProducto);
 
-        // Sobrescribir Excel
+        // 🔹 Guardar Excel actualizado
         const nuevaHoja = XLSX.utils.json_to_sheet(datos);
-        workbook.Sheets[workbook.SheetNames[0]] = nuevaHoja;
-        const buffer = XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
+        workbook.Sheets[sheetName] = nuevaHoja;
 
-        await s3.putObject({
-            Bucket: BUCKET_NAME,
-            Key: FILE_KEY,
-            Body: buffer,
-            ContentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        }).promise();
+        const buffer = XLSX.write(workbook, {
+            type: "buffer",
+            bookType: "xlsx",
+        });
 
-        console.log("✅ Producto actualizado exitosamente.");
+        await s3
+            .putObject({
+                Bucket: BUCKET_NAME,
+                Key: FILE_KEY,
+                Body: buffer,
+                ContentType:
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            })
+            .promise();
+
+        console.log("✅ Producto guardado correctamente:", idFinal);
 
         return {
             statusCode: 200,
             headers: corsHeaders,
-            body: JSON.stringify({ message: "Producto actualizado exitosamente." }),
+            body: JSON.stringify({
+                message: esNuevo
+                    ? "Producto creado exitosamente."
+                    : "Producto actualizado exitosamente.",
+                IdProducto: idFinal, // 🔥 devolver ID real al frontend
+            }),
         };
     } catch (error) {
-        console.error("❌ Error al actualizar:", error);
+        console.error("❌ Error en actualizarProducto.cjs:", error);
         return {
             statusCode: 500,
             headers: corsHeaders,
-            body: JSON.stringify({ message: "Error al actualizar el producto en S3" }),
+            body: JSON.stringify({
+                message: "Error al guardar el producto en S3",
+            }),
         };
     }
 };

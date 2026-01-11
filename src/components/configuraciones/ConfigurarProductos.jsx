@@ -32,6 +32,7 @@ const ConfigurarProductos = () => {
   const [subiendoImagen, setSubiendoImagen] = useState(false);
   const [imagenActualizada, setImagenActualizada] = useState(false);
   const [productoGuardado, setProductoGuardado] = useState(false);
+  const [modoFormulario, setModoFormulario] = useState('editar'); // 'nuevo' | 'editar'
 
   const [nuevoProducto, setNuevoProducto] = useState({
     IdProducto: '',
@@ -63,6 +64,7 @@ const ConfigurarProductos = () => {
   };
 
   const handleEditar = (index) => {
+    setModoFormulario('editar');
     setSelected(index);
     setNuevoProducto({ ...productos[index] });
 
@@ -74,12 +76,15 @@ const ConfigurarProductos = () => {
   };
 
 
+
   const handleCancelar = () => {
+    setModoFormulario('editar');
     setPreviewImagen(null);
     setSelected(null);
     setMostrarFormulario(null);
     setDialogEditarOpen(false);
   };
+
   useEffect(() => {
     if (dialogEditarOpen) {
       setImagenActualizada(false);
@@ -98,44 +103,56 @@ const ConfigurarProductos = () => {
       return;
     }
 
-    if (!nuevoProducto.IdProducto) {
-      nuevoProducto.IdProducto = crypto.randomUUID();
-    }
-
-    const url = `${window.location.hostname === 'localhost' ? 'http://localhost:8888' : ''}/.netlify/functions/actualizarProducto`;
+    const url = `${functionsBaseUrl}/.netlify/functions/actualizarProducto`;
     setActualizando(true);
+
     try {
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ producto: nuevoProducto }),
       });
-      const result = await res.json();
-      setSnackbar({ open: true, message: result.message || 'Producto actualizado.' });
+
+      await res.json();
+
+      setSnackbar({
+        open: true,
+        message:
+          modoFormulario === 'nuevo'
+            ? 'Producto creado correctamente 🎉'
+            : 'Producto actualizado correctamente ✏️',
+      });
+
       await recargarProductos();
       handleCancelar();
     } catch (err) {
-      console.error('❌ Error al actualizar producto:', err);
-      setSnackbar({ open: true, message: 'Error al actualizar producto' });
+      console.error(err);
+      setSnackbar({ open: true, message: 'Error al guardar producto' });
     } finally {
       setActualizando(false);
     }
   };
 
-  const handleEliminar = (index) => {
-    setProductoAEliminar(index);
+
+  const handleEliminar = (producto) => {
+    setProductoAEliminar(producto);
   };
 
   const confirmarEliminar = async () => {
+
     if (productoAEliminar === null) return;
     setEliminando(true);
     try {
-      const producto = productos[productoAEliminar];
+      const producto = productoAEliminar;
+      console.log("🚨 Producto a eliminar:", productoAEliminar);
+      console.log("🚨 IdProducto enviado:", productoAEliminar?.IdProducto);
+
       const url = `${window.location.hostname === 'localhost' ? 'http://localhost:8888' : ''}/.netlify/functions/eliminarProducto`;
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ IdProducto: producto.IdProducto })
+
       });
       const result = await res.json();
       setSnackbar({ open: true, message: result.message || 'Producto eliminado.' });
@@ -166,6 +183,19 @@ const ConfigurarProductos = () => {
     }
   };
 
+  const obtenerSiguienteIdProducto = () => {
+    if (!productos.length) return 1;
+
+    const maxId = Math.max(
+      ...productos
+        .map(p => Number(p.IdProducto))
+        .filter(id => !Number.isNaN(id))
+    );
+
+    return maxId + 1;
+  };
+
+
   return (
     <Container maxWidth={false} disableGutters sx={{ minHeight: '100vh', width: '100vw', overflowX: 'hidden', py: 1, px: 0, pb: 2, backgroundImage: 'url(fondo-blizz-ivelpink.webp)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundPosition: 'center' }}>
       <Box sx={{ pt: 14, px: { xs: 2, md: 4 } }}>
@@ -180,7 +210,38 @@ const ConfigurarProductos = () => {
               ))}
             </Typography>
           </Box>
-          <Button variant="outlined" color="inherit" onClick={() => setRestaurarOpen(true)} startIcon={<UpdateIcon />} sx={{ fontSize: { xs: '0.5rem', sm: '1.25rem' }, color: 'white', borderColor: 'white', '&:hover': { backgroundColor: '#ffffff22', borderColor: '#ffffffcc' } }}>Restaurar productos</Button>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => {
+              const nextId = obtenerSiguienteIdProducto();
+
+              setModoFormulario('nuevo');
+              setSelected(null);
+              setNuevoProducto({
+                IdProducto: nextId, // ✅ INT autoincrement real
+                NombreProducto: '',
+                Descripcion: '',
+                Valor: '',
+                Stock: '',
+                ImageUrl: '',
+                VideoUrl: '',
+                ConDescuento: false,
+              });
+
+              setDialogEditarOpen(true);
+            }}
+
+            sx={{
+              fontSize: { xs: '0.8rem', sm: '1.25rem' },
+              backgroundColor: '#7b4b5a',
+              '&:hover': { backgroundColor: '#5a2e3b' },
+            }}
+          >
+            Agregar
+          </Button>
+
+          {/*<Button variant="outlined" color="inherit" onClick={() => setRestaurarOpen(true)} startIcon={<UpdateIcon />} sx={{ fontSize: { xs: '0.5rem', sm: '1.25rem' }, color: 'white', borderColor: 'white', '&:hover': { backgroundColor: '#ffffff22', borderColor: '#ffffffcc' } }}>Restaurar productos</Button>*/}
         </Box>
 
         <Grid container spacing={2}>
@@ -214,12 +275,7 @@ const ConfigurarProductos = () => {
                     <Box
                       sx={{
                         height: 160,
-                        backgroundImage: `url(${producto.ImageUrl &&
-                          producto.ImageUrl !== 'undefined' &&
-                          producto.ImageUrl.trim() !== ''
-                          ? producto.ImageUrl
-                          : '/Area-1.webp'
-                          })`,
+                        backgroundImage: `url(${producto.ImageUrl}?v=${producto.IdProducto}-${producto.Valor})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         position: 'relative',
@@ -247,7 +303,7 @@ const ConfigurarProductos = () => {
                         </Typography>
 
                         <Typography fontSize="0.75rem">
-                          ${producto.Valor}
+                          ${producto.Valor} USD
                         </Typography>
 
                         <Typography fontSize="0.7rem" opacity={0.85}>
@@ -288,7 +344,7 @@ const ConfigurarProductos = () => {
 
                         <IconButton
                           size="small"
-                          onClick={() => handleEliminar(idx)}
+                          onClick={() => handleEliminar(producto)}
                           sx={{
                             backgroundColor: '#00000088',
                             color: 'white',
@@ -437,11 +493,10 @@ const ConfigurarProductos = () => {
               <IconButton edge="start" color="inherit" onClick={handleCancelar}>
                 <CloseIcon />
               </IconButton>
-              <Typography
-                sx={{ ml: 2, fontWeight: 600, letterSpacing: 0.5 }}
-                variant="h6"
-              >
-                ✂️ Editar Producto
+              <Typography sx={{ ml: 2, fontWeight: 600 }} variant="h6">
+                {modoFormulario === 'nuevo'
+                  ? '➕ Nuevo Producto'
+                  : '✂️ Editar Producto'}
               </Typography>
             </Toolbar>
           </AppBar>
@@ -591,7 +646,7 @@ const ConfigurarProductos = () => {
 
                               setNuevoProducto((prev) => ({
                                 ...prev,
-                                ImageUrl: url,
+                                ImageUrl: `${url}?v=${Date.now()}`,
                               }));
 
                               setSubiendoImagen(false); // 🔥 APAGAR
@@ -839,7 +894,14 @@ const ConfigurarProductos = () => {
           </Box>
         </Dialog>
 
-        <DialogEliminarProducto open={productoAEliminar !== null} producto={productos[productoAEliminar]} eliminando={eliminando} onClose={() => !eliminando && setProductoAEliminar(null)} onConfirm={confirmarEliminar} />
+        <DialogEliminarProducto
+          open={productoAEliminar !== null}
+          producto={productoAEliminar}
+          eliminando={eliminando}
+          onClose={() => !eliminando && setProductoAEliminar(null)}
+          onConfirm={confirmarEliminar}
+        />
+
         <DialogRestaurarProductos open={restaurarOpen} restaurando={restaurando} onClose={() => !restaurando && setRestaurarOpen(false)} onConfirm={confirmarRestaurar} />
         <MenuInferior cardSize={cardSize} modo="configurar-productos" />
         <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>

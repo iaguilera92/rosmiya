@@ -20,7 +20,7 @@ const Catalogo = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const FormatearPesos = (valor) => `$${valor.toLocaleString('es-CL')}`;
-  const CalcularValorOld = (valor) => FormatearPesos(valor + 10000);
+  const CalcularValorOld = (valor) => FormatearPesos(valor + 5);
   const [productoActivo, setProductoActivo] = useState({});
   const [showArrow, setShowArrow] = useState({});
 
@@ -100,7 +100,7 @@ const Catalogo = () => {
     return chunks;
   };
 
-  const grupos = chunkProductos(productos, 5);
+  const grupos = chunkProductos(productos, 3);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
